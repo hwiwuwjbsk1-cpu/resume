@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Guo Junxian | AI Product Operator</title>
+    <title>郭钧贤 | AI Product Operator</title>
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%23000000'/%3E%3Cg fill='none' stroke='%23ffffff' stroke-width='2.6'%3E%3Cellipse cx='32' cy='32' rx='18' ry='10' transform='rotate(-28 32 32)'/%3E%3Cellipse cx='32' cy='32' rx='18' ry='10' transform='rotate(28 32 32)'/%3E%3C/g%3E%3Ccircle cx='32' cy='32' r='4.2' fill='%23ffffff'/%3E%3C/svg%3E">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -226,7 +226,8 @@
             position:relative;min-height:520px;border-radius:32px;overflow:hidden;border:1px solid rgba(255,255,255,.08);
             background:#040404;box-shadow:var(--shadow)
         }
-        .scenario-feature-media,.scenario-feature-media video,.scenario-feature-overlay{position:absolute;inset:0}
+        .scenario-feature-media,.scenario-feature-media video,.scenario-feature-media img,.scenario-feature-overlay{position:absolute;inset:0}
+        .scenario-feature-media img{display:block;width:100%;height:100%;object-fit:cover}
         .scenario-feature-overlay{
             background:
                 linear-gradient(180deg, rgba(0,0,0,.12), rgba(0,0,0,.34) 42%, rgba(0,0,0,.82)),
@@ -247,6 +248,11 @@
         }
         .scenario-card strong{display:block;margin-top:12px;font-size:1.45rem;font-weight:800;letter-spacing:-.04em}
         .scenario-card p{margin-top:12px;color:rgba(255,255,255,.62);line-height:1.78}
+        .scenario-card-media{
+            margin-top:18px;aspect-ratio:16 / 8.4;border-radius:22px;overflow:hidden;
+            border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.03)
+        }
+        .scenario-card-media img{display:block;width:100%;height:100%;object-fit:cover}
         .scenario-card-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:18px}
         .scenario-card-cell{
             padding:14px;border-radius:18px;border:1px solid rgba(255,255,255,.06);background:rgba(255,255,255,.025)
@@ -303,9 +309,9 @@
 <body class="site-shell">
     <header class="site-header" id="siteHeader">
         <div class="header-shell">
-            <a class="brand-lockup" href="#home" aria-label="Guo Junxian home">
+            <a class="brand-lockup" href="#home" aria-label="郭钧贤 home">
                 <span class="brand-mark" aria-hidden="true"><span class="brand-core"></span></span>
-                <span>Guo Junxian</span>
+                <span>郭钧贤</span>
             </a>
             <nav class="header-nav" aria-label="Primary">
                 <a class="header-nav-trigger" href="#series" data-hover-target="workflow-studio">Workflow Studio</a>
@@ -468,7 +474,7 @@
                                 <span>Featured Workflow</span>
                                 <span>Operator Demo</span>
                             </div>
-                            <video class="media-video" data-start="0.5" autoplay muted loop playsinline preload="metadata" src="featured-case.mp4"></video>
+                            <video class="media-video" data-start="0.5" autoplay muted loop playsinline preload="metadata" src="fund-agent.mp4"></video>
                         </div>
                         <div class="model-series-notes">
                             <article class="model-series-note fade-up">
@@ -743,7 +749,7 @@
                 <div class="scenario-stage">
                     <article class="scenario-feature fade-up">
                         <div class="scenario-feature-media" aria-hidden="true">
-                            <video class="media-video" data-start="0.5" autoplay muted loop playsinline preload="metadata" src="featured-case.mp4"></video>
+                            <img src="scene-dify-grid.png" alt="Dify workflow dashboard showcase">
                         </div>
                         <div class="scenario-feature-overlay" aria-hidden="true"></div>
                         <div class="scenario-content">
@@ -781,6 +787,9 @@
                             <span>Scene 03</span>
                             <strong>Agent Workflow Content Engine</strong>
                             <p>When content teams need speed without losing structure, I build pipelines that connect topic intake, generation, editing, and publishing delivery.</p>
+                            <div class="scenario-card-media">
+                                <img src="scene-lingyun-home.png" alt="AI assistant homepage showcase">
+                            </div>
                             <div class="scenario-card-grid">
                                 <div class="scenario-card-cell">
                                     <small>Need</small>
@@ -869,7 +878,7 @@
                         <a class="contact-link" href="https://hwiwuwjbsk1-cpu.github.io/resume/" target="_blank" rel="noreferrer">Online Portfolio</a>
                         <a class="contact-link" href="https://pan.baidu.com/s/1VcrqRLwhRTiZhjXcQTJYlA?pwd=5tfu" target="_blank" rel="noreferrer">Project Files</a>
                     </div>
-                    <p class="footer-note">Guo Junxian · AI Product Operator · Agent Workflow Builder</p>
+                    <p class="footer-note">郭钧贤 · AI Product Operator · Agent Workflow Builder</p>
                 </div>
             </div>
         </section>
