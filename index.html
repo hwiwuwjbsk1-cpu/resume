@@ -56,8 +56,17 @@
         }
         .header-nav-trigger:hover::after,.header-nav-trigger.is-open::after{border-color:#fff;transform:rotate(45deg) translate(1px,-2px)}
         .header-actions{display:inline-flex;align-items:center;gap:14px}
-        .language-pill,.header-cta,.hero-cta,.contact-cta,.contact-link{border-radius:999px;white-space:nowrap}
-        .language-pill{padding:10px 14px;border:1px solid rgba(255,255,255,.22);color:rgba(255,255,255,.76);font-size:.88rem}
+        .language-switch,.header-cta,.hero-cta,.contact-cta,.contact-link{border-radius:999px;white-space:nowrap}
+        .language-switch{
+            display:inline-flex;align-items:center;gap:4px;padding:4px;border:1px solid rgba(255,255,255,.22);
+            background:rgba(255,255,255,.03)
+        }
+        .language-toggle{
+            padding:7px 11px;border-radius:999px;color:rgba(255,255,255,.68);font-size:.82rem;font-weight:800;
+            letter-spacing:.02em;line-height:1;transition:background-color var(--transition),color var(--transition),transform var(--transition)
+        }
+        .language-toggle:hover{color:#fff}
+        .language-toggle.is-active{background:#fff;color:#000}
         .header-cta,.hero-cta,.contact-cta{background:#fff;color:#000;font-weight:800;transition:transform var(--transition),box-shadow var(--transition)}
         .header-cta{padding:10px 18px;font-size:.92rem}
         .header-cta:hover,.hero-cta:hover,.contact-cta:hover{transform:translateY(-2px);box-shadow:0 18px 36px rgba(255,255,255,.18)}
@@ -316,119 +325,122 @@
 <body class="site-shell">
     <header class="site-header" id="siteHeader">
         <div class="header-shell">
-            <a class="brand-lockup" href="#home" aria-label="郭钧贤 home">
+            <a class="brand-lockup" href="#home" id="brandLockup" aria-label="郭钧贤 home">
                 <span class="brand-mark" aria-hidden="true"><span class="brand-core"></span></span>
                 <span>郭钧贤</span>
             </a>
             <nav class="header-nav" aria-label="Primary">
-                <a class="header-nav-trigger" href="#series" data-hover-target="workflow-studio">Workflows</a>
-                <a class="header-nav-trigger" href="#projects" data-hover-target="capability-platform">Systems</a>
-                <a class="header-nav-trigger" href="#experience" data-hover-target="about-node">About</a>
-                <a class="header-nav-link" href="#scenes">Scenarios</a>
-                <a class="header-nav-link" href="#contact">Contact</a>
+                <a class="header-nav-trigger" href="#series" data-hover-target="workflow-studio" data-i18n="navWorkflows">Workflows</a>
+                <a class="header-nav-trigger" href="#projects" data-hover-target="capability-platform" data-i18n="navSystems">Systems</a>
+                <a class="header-nav-trigger" href="#experience" data-hover-target="about-node" data-i18n="navAbout">About</a>
+                <a class="header-nav-link" href="#scenes" data-i18n="navScenarios">Scenarios</a>
+                <a class="header-nav-link" href="#contact" data-i18n="navContact">Contact</a>
             </nav>
             <div class="header-actions">
-                <span class="language-pill">English</span>
-                <a class="header-cta" href="guojunxian-resume.pdf" target="_blank" rel="noreferrer">View Resume</a>
+                <div class="language-switch" id="languageSwitch" role="group" aria-label="Language switch">
+                    <button class="language-toggle is-active" type="button" data-lang-toggle="en" aria-pressed="true">EN</button>
+                    <button class="language-toggle" type="button" data-lang-toggle="zh" aria-pressed="false">中文</button>
+                </div>
+                <a class="header-cta" href="guojunxian-resume.pdf" target="_blank" rel="noreferrer" data-i18n="headerResumeCta">View Resume</a>
             </div>
         </div>
         <div class="header-hover-shell" id="headerHoverShell" aria-hidden="true">
             <div class="header-hover-panel" data-hover-panel="workflow-studio">
                 <div class="hover-panel-column">
-                    <div class="hover-panel-label">Workflows &amp; Skills</div>
+                    <div class="hover-panel-label" data-i18n="workflowPanelLabel">Workflows &amp; Skills</div>
                     <div class="hover-panel-grid">
                         <a class="hover-panel-link" href="#series">
-                            <strong>Dify + Bailian Workflows</strong>
-                            <p>See how I build scenario agents on top of company data products and package them as reusable Skills.</p>
+                            <strong data-i18n="workflowLink1Title">Dify + Bailian Workflows</strong>
+                            <p data-i18n="workflowLink1Copy">See how I build scenario agents on top of company data products and package them as reusable Skills.</p>
                         </a>
                         <a class="hover-panel-link" href="#projects">
-                            <strong>WeChat Content Skills</strong>
-                            <p>Review the workflow behind topic intake, drafting, formatting, and delivery for official-account content.</p>
+                            <strong data-i18n="workflowLink2Title">WeChat Content Skills</strong>
+                            <p data-i18n="workflowLink2Copy">Review the workflow behind topic intake, drafting, formatting, and delivery for official-account content.</p>
                         </a>
                         <a class="hover-panel-link" href="#scenes">
-                            <strong>Investor Scenarios</strong>
-                            <p>See how the system lowers the barrier from entry to first successful use for investors.</p>
+                            <strong data-i18n="workflowLink3Title">Investor Scenarios</strong>
+                            <p data-i18n="workflowLink3Copy">See how the system lowers the barrier from entry to first successful use for investors.</p>
                         </a>
                         <a class="hover-panel-link" href="https://pan.baidu.com/s/1VcrqRLwhRTiZhjXcQTJYlA?pwd=5tfu" target="_blank" rel="noreferrer">
-                            <strong>Project Files</strong>
-                            <p>Open deeper project materials, supporting assets, and extra examples.</p>
+                            <strong data-i18n="workflowLink4Title">Project Files</strong>
+                            <p data-i18n="workflowLink4Copy">Open deeper project materials, supporting assets, and extra examples.</p>
                         </a>
                     </div>
                 </div>
                 <div class="hover-panel-highlight">
-                    <div class="hover-panel-label">Current Focus</div>
-                    <h3>Build the Skill, Then Lower the Barrier</h3>
-                    <p>My focus is using company data products to build scenario agents, workflows, and reusable Skills in Dify and Alibaba Bailian, then making them easier for investors to understand and use.</p>
+                    <div class="hover-panel-label" data-i18n="workflowHighlightLabel">Current Focus</div>
+                    <h3 data-i18n="workflowHighlightTitle">Build the Skill, Then Lower the Barrier</h3>
+                    <p data-i18n="workflowHighlightCopy">My focus is using company data products to build scenario agents, workflows, and reusable Skills in Dify and Alibaba Bailian, then making them easier for investors to understand and use.</p>
                     <div class="hover-panel-chips">
-                        <span class="hover-panel-chip">Dify</span>
-                        <span class="hover-panel-chip">Alibaba Bailian</span>
-                        <span class="hover-panel-chip">Investor Onboarding</span>
+                        <span class="hover-panel-chip" data-i18n="workflowChip1">Dify</span>
+                        <span class="hover-panel-chip" data-i18n="workflowChip2">Alibaba Bailian</span>
+                        <span class="hover-panel-chip" data-i18n="workflowChip3">Investor Onboarding</span>
                     </div>
                 </div>
             </div>
             <div class="header-hover-panel" data-hover-panel="capability-platform">
                 <div class="hover-panel-column">
-                    <div class="hover-panel-label">Core Systems</div>
+                    <div class="hover-panel-label" data-i18n="systemsPanelLabel">Core Systems</div>
                     <div class="hover-panel-grid">
                         <a class="hover-panel-link" href="#projects">
-                            <strong>Scenario Agents</strong>
-                            <p>Agent capabilities built on company data products for real investor-facing scenarios.</p>
+                            <strong data-i18n="systemsLink1Title">Scenario Agents</strong>
+                            <p data-i18n="systemsLink1Copy">Agent capabilities built on company data products for real investor-facing scenarios.</p>
                         </a>
                         <a class="hover-panel-link" href="#projects">
-                            <strong>WeChat Workflows</strong>
-                            <p>Reusable workflows for topic intake, drafting, formatting, and delivery.</p>
+                            <strong data-i18n="systemsLink2Title">WeChat Workflows</strong>
+                            <p data-i18n="systemsLink2Copy">Reusable workflows for topic intake, drafting, formatting, and delivery.</p>
                         </a>
                         <a class="hover-panel-link" href="#projects">
-                            <strong>Skill Demos</strong>
-                            <p>Demo pages and delivery assets that make finished capabilities easier to present and review.</p>
+                            <strong data-i18n="systemsLink3Title">Skill Demos</strong>
+                            <p data-i18n="systemsLink3Copy">Demo pages and delivery assets that make finished capabilities easier to present and review.</p>
                         </a>
                         <a class="hover-panel-link" href="#contact">
-                            <strong>Contact Me</strong>
-                            <p>Move straight from reviewing the work into a conversation about roles or collaboration.</p>
+                            <strong data-i18n="systemsLink4Title">Contact Me</strong>
+                            <p data-i18n="systemsLink4Copy">Move straight from reviewing the work into a conversation about roles or collaboration.</p>
                         </a>
                     </div>
                 </div>
                 <div class="hover-panel-highlight">
-                    <div class="hover-panel-label">How I Work</div>
-                    <h3>Three Layers, One Ops Lens</h3>
-                    <p>I define the scenario, build the workflow, package it as a Skill, and turn the output into something easier to review and easier to use.</p>
+                    <div class="hover-panel-label" data-i18n="systemsHighlightLabel">How I Work</div>
+                    <h3 data-i18n="systemsHighlightTitle">Three Layers, One Ops Lens</h3>
+                    <p data-i18n="systemsHighlightCopy">I define the scenario, build the workflow, package it as a Skill, and turn the output into something easier to review and easier to use.</p>
                     <div class="hover-panel-chips">
-                        <span class="hover-panel-chip">Scenario Design</span>
-                        <span class="hover-panel-chip">Skill Packaging</span>
-                        <span class="hover-panel-chip">User-Facing Delivery</span>
+                        <span class="hover-panel-chip" data-i18n="systemsChip1">Scenario Design</span>
+                        <span class="hover-panel-chip" data-i18n="systemsChip2">Skill Packaging</span>
+                        <span class="hover-panel-chip" data-i18n="systemsChip3">User-Facing Delivery</span>
                     </div>
                 </div>
             </div>
             <div class="header-hover-panel" data-hover-panel="about-node">
                 <div class="hover-panel-column">
-                    <div class="hover-panel-label">About</div>
+                    <div class="hover-panel-label" data-i18n="aboutPanelLabel">About</div>
                     <div class="hover-panel-grid">
                         <a class="hover-panel-link" href="#experience">
-                            <strong>Experience</strong>
-                            <p>See the internships and projects that shaped my product, content, and execution lens.</p>
+                            <strong data-i18n="aboutLink1Title">Experience</strong>
+                            <p data-i18n="aboutLink1Copy">See the internships and projects that shaped my product, content, and execution lens.</p>
                         </a>
                         <a class="hover-panel-link" href="https://hwiwuwjbsk1-cpu.github.io/resume/" target="_blank" rel="noreferrer">
-                            <strong>Live Resume</strong>
-                            <p>Open the current public version of this resume site directly.</p>
+                            <strong data-i18n="aboutLink2Title">Live Resume</strong>
+                            <p data-i18n="aboutLink2Copy">Open the current public version of this resume site directly.</p>
                         </a>
                         <a class="hover-panel-link" href="mailto:2581916082@qq.com">
-                            <strong>Email</strong>
-                            <p>If you want to talk about AI product operations, workflow building, or fit for a role, reach out directly.</p>
+                            <strong data-i18n="aboutLink3Title">Email</strong>
+                            <p data-i18n="aboutLink3Copy">If you want to talk about AI product operations, workflow building, or fit for a role, reach out directly.</p>
                         </a>
                         <a class="hover-panel-link" href="tel:17328030629">
-                            <strong>Phone</strong>
-                            <p>If you want to confirm timing, fit, or project details faster, this is the most direct route.</p>
+                            <strong data-i18n="aboutLink4Title">Phone</strong>
+                            <p data-i18n="aboutLink4Copy">If you want to confirm timing, fit, or project details faster, this is the most direct route.</p>
                         </a>
                     </div>
                 </div>
                 <div class="hover-panel-highlight">
-                    <div class="hover-panel-label">Positioning</div>
-                    <h3>AI Product Ops + Execution</h3>
-                    <p>My internship work centered on building scenario agents and workflows on top of company data products, then packaging them as Skills with clearer adoption paths.</p>
+                    <div class="hover-panel-label" data-i18n="aboutHighlightLabel">Positioning</div>
+                    <h3 data-i18n="aboutHighlightTitle">AI Product Ops + Execution</h3>
+                    <p data-i18n="aboutHighlightCopy">My internship work centered on building scenario agents and workflows on top of company data products, then packaging them as Skills with clearer adoption paths.</p>
                     <div class="hover-panel-chips">
-                        <span class="hover-panel-chip">AI Product Ops</span>
-                        <span class="hover-panel-chip">Skill Building</span>
-                        <span class="hover-panel-chip">Lowering Friction</span>
+                        <span class="hover-panel-chip" data-i18n="aboutChip1">AI Product Ops</span>
+                        <span class="hover-panel-chip" data-i18n="aboutChip2">Skill Building</span>
+                        <span class="hover-panel-chip" data-i18n="aboutChip3">Lowering Friction</span>
                     </div>
                 </div>
             </div>
@@ -441,15 +453,15 @@
                 <video class="media-video" data-start="0.8" autoplay muted loop playsinline preload="auto" src="hero-cover.mp4"></video>
             </div>
             <div class="hero-content fade-up">
-                <div class="eyebrow">AI Product Operations</div>
-                <h1 class="hero-title">Build Scenario Agents Into Usable Skills</h1>
-                <p class="hero-subtitle">
+                <div class="eyebrow" data-i18n="heroEyebrow">AI Product Operations</div>
+                <h1 class="hero-title" data-i18n="heroTitle">Build Scenario Agents Into Usable Skills</h1>
+                <p class="hero-subtitle" data-i18n="heroSubtitle">
                     I use company data products to build scenario-based agents and workflows in Dify and
                     Alibaba Bailian, including WeChat official-account workflows packaged as Skills, so
                     investors can start using AI capabilities with less friction.
                 </p>
-                <a class="hero-cta" href="#series">View Work</a>
-                <p class="hero-note">Focused on AI product operations, workflow building, and investor usability.</p>
+                <a class="hero-cta" href="#series" data-i18n="heroCta">View Work</a>
+                <p class="hero-note" data-i18n="heroNote">Focused on AI product operations, workflow building, and investor usability.</p>
             </div>
         </section>
 
@@ -457,12 +469,12 @@
             <div class="section-shell">
                 <div class="model-series-shell">
                     <div class="model-series-header fade-up">
-                        <div class="section-kicker" aria-label="Skill And Workflow System">Skills &amp; Workflows</div>
+                        <div class="section-kicker" aria-label="Skill And Workflow System" data-i18n="seriesKicker">Skills &amp; Workflows</div>
                         <div class="model-series-title-box">
-                            <div class="model-series-title">Scenario Agents</div>
-                            <div class="model-series-subtitle">Dify · Bailian · Skills</div>
+                            <div class="model-series-title" data-i18n="seriesTitle">Scenario Agents</div>
+                            <div class="model-series-subtitle" data-i18n="seriesSubtitle">Dify · Bailian · Skills</div>
                         </div>
-                        <p class="model-series-copy">
+                        <p class="model-series-copy" data-i18n="seriesCopy">
                             My core internship work was using the company&apos;s data products to build scenario-based
                             agents and workflows in Dify and Alibaba Bailian, then packaging them into reusable
                             Skills. The same logic also extended to WeChat official-account content
@@ -470,36 +482,36 @@
                             these tools.
                         </p>
                         <div class="model-series-pills">
-                            <span class="model-series-pill">Company Data Products</span>
+                            <span class="model-series-pill" data-i18n="seriesPill1">Company Data Products</span>
                             <span class="model-series-pill">Dify</span>
-                            <span class="model-series-pill">Alibaba Bailian</span>
-                            <span class="model-series-pill">Skills Packaging</span>
-                            <span class="model-series-pill">Investor Adoption</span>
+                            <span class="model-series-pill" data-i18n="seriesPill2">Alibaba Bailian</span>
+                            <span class="model-series-pill" data-i18n="seriesPill3">Skills Packaging</span>
+                            <span class="model-series-pill" data-i18n="seriesPill4">Investor Adoption</span>
                         </div>
                     </div>
                     <div class="model-series-stage">
                         <div class="video-frame model-series-video fade-up">
                             <div class="video-meta">
-                                <span>Featured Skill</span>
-                                <span>Fund Analysis Demo</span>
+                                <span data-i18n="seriesMeta1">Featured Skill</span>
+                                <span data-i18n="seriesMeta2">Fund Analysis Demo</span>
                             </div>
                             <video class="media-video" data-start="0.5" autoplay muted loop playsinline preload="metadata" src="fund-agent.mp4"></video>
                         </div>
                         <div class="model-series-notes">
                             <article class="model-series-note fade-up">
-                                <span>01 / Define the scene</span>
-                                <strong>Start from a real investor question</strong>
-                                <p>Map a concrete investment use case before building the agent, so the workflow serves a real entry point instead of a generic demo.</p>
+                                <span data-i18n="seriesNote1Label">01 / Define the scene</span>
+                                <strong data-i18n="seriesNote1Title">Start from a real investor question</strong>
+                                <p data-i18n="seriesNote1Copy">Map a concrete investment use case before building the agent, so the workflow serves a real entry point instead of a generic demo.</p>
                             </article>
                             <article class="model-series-note fade-up">
-                                <span>02 / Build the workflow</span>
-                                <strong>Use Dify and Bailian to structure the capability</strong>
-                                <p>Connect prompts, workflow nodes, data products, and output rules, then package the result as a reusable Skill.</p>
+                                <span data-i18n="seriesNote2Label">02 / Build the workflow</span>
+                                <strong data-i18n="seriesNote2Title">Use Dify and Bailian to structure the capability</strong>
+                                <p data-i18n="seriesNote2Copy">Connect prompts, workflow nodes, data products, and output rules, then package the result as a reusable Skill.</p>
                             </article>
                             <article class="model-series-note fade-up">
-                                <span>03 / Lower the threshold</span>
-                                <strong>Make the tool easier for investors to use</strong>
-                                <p>Clarify entry paths, output logic, and next steps so investors can reach first successful use with less friction.</p>
+                                <span data-i18n="seriesNote3Label">03 / Lower the threshold</span>
+                                <strong data-i18n="seriesNote3Title">Make the tool easier for investors to use</strong>
+                                <p data-i18n="seriesNote3Copy">Clarify entry paths, output logic, and next steps so investors can reach first successful use with less friction.</p>
                             </article>
                         </div>
                     </div>
@@ -510,98 +522,98 @@
         <section id="projects">
             <div class="section-shell showcase-shell">
                 <div class="showcase-head fade-up">
-                    <div class="section-kicker">Core Systems</div>
-                    <h2 class="section-title">Three Core Systems</h2>
-                    <p class="section-copy">
+                    <div class="section-kicker" data-i18n="projectsKicker">Core Systems</div>
+                    <h2 class="section-title" data-i18n="projectsTitle">Three Core Systems</h2>
+                    <p class="section-copy" data-i18n="projectsCopy">
                         These are the three systems I built most often during internship and project work:
                         scenario agents, official-account content workflows, and delivery-ready Skill demos.
                     </p>
                 </div>
                 <div class="fade-up">
                     <div class="showcase-tabs" role="tablist" aria-label="Capability showcase">
-                        <button class="showcase-tab is-active" type="button" role="tab" aria-selected="true" data-showcase-tab="analysis-agent">Scenario Agent</button>
-                        <button class="showcase-tab" type="button" role="tab" aria-selected="false" data-showcase-tab="content-workflow">WeChat Workflow</button>
-                        <button class="showcase-tab" type="button" role="tab" aria-selected="false" data-showcase-tab="launch-prototype">Skill Demo</button>
+                        <button class="showcase-tab is-active" type="button" role="tab" aria-selected="true" data-showcase-tab="analysis-agent" data-i18n="projectsTab1">Scenario Agent</button>
+                        <button class="showcase-tab" type="button" role="tab" aria-selected="false" data-showcase-tab="content-workflow" data-i18n="projectsTab2">WeChat Workflow</button>
+                        <button class="showcase-tab" type="button" role="tab" aria-selected="false" data-showcase-tab="launch-prototype" data-i18n="projectsTab3">Skill Demo</button>
                     </div>
                 </div>
                 <div class="showcase-rail">
                     <button class="showcase-rail-item is-active" type="button" data-showcase-rail="analysis-agent">
                         <span>01</span>
-                        <strong>Scenario Agent</strong>
-                        <p>Build scenario-based agents on top of company data products, then package them as Skills.</p>
+                        <strong data-i18n="projectsRail1Title">Scenario Agent</strong>
+                        <p data-i18n="projectsRail1Copy">Build scenario-based agents on top of company data products, then package them as Skills.</p>
                     </button>
                     <button class="showcase-rail-item" type="button" data-showcase-rail="content-workflow">
                         <span>02</span>
-                        <strong>WeChat Workflow</strong>
-                        <p>Turn official account production into a repeatable workflow with reusable output nodes.</p>
+                        <strong data-i18n="projectsRail2Title">WeChat Workflow</strong>
+                        <p data-i18n="projectsRail2Copy">Turn official account production into a repeatable workflow with reusable output nodes.</p>
                     </button>
                     <button class="showcase-rail-item" type="button" data-showcase-rail="launch-prototype">
                         <span>03</span>
-                        <strong>Skill Demo</strong>
-                        <p>Build demos and review-ready pages so a finished capability is easier to explain and use.</p>
+                        <strong data-i18n="projectsRail3Title">Skill Demo</strong>
+                        <p data-i18n="projectsRail3Copy">Build demos and review-ready pages so a finished capability is easier to explain and use.</p>
                     </button>
                 </div>
                 <div class="showcase-panels">
                     <article class="showcase-panel is-active" data-showcase-panel="analysis-agent">
                         <div class="showcase-copy-block">
-                            <div class="showcase-panel-index">01 / Scenario Agent</div>
-                            <h3 class="showcase-panel-title">Scenario Agents Built On Data Products</h3>
-                            <p class="showcase-panel-copy">
+                            <div class="showcase-panel-index" data-i18n="analysisIndex">01 / Scenario Agent</div>
+                            <h3 class="showcase-panel-title" data-i18n="analysisTitle">Scenario Agents Built On Data Products</h3>
+                            <p class="showcase-panel-copy" data-i18n="analysisCopy">
                                 I use company data products to build investor-facing agents in Dify and Alibaba
                                 Bailian, then package them as reusable Skills so the capability is easier to
                                 trigger, understand, and reuse.
                             </p>
                             <ul class="showcase-bullet-list">
                                 <li class="showcase-bullet">
-                                    <strong>Scenario first</strong>
-                                    <p>Start by identifying the real investor question before deciding the data path, prompts, and output goal.</p>
+                                    <strong data-i18n="analysisBullet1Title">Scenario first</strong>
+                                    <p data-i18n="analysisBullet1Copy">Start by identifying the real investor question before deciding the data path, prompts, and output goal.</p>
                                 </li>
                                 <li class="showcase-bullet">
-                                    <strong>Connect the data product</strong>
-                                    <p>Bring the company&apos;s data products into Dify and Alibaba Bailian so the workflow, prompts, and output structure serve a real use case.</p>
+                                    <strong data-i18n="analysisBullet2Title">Connect the data product</strong>
+                                    <p data-i18n="analysisBullet2Copy">Bring the company&apos;s data products into Dify and Alibaba Bailian so the workflow, prompts, and output structure serve a real use case.</p>
                                 </li>
                                 <li class="showcase-bullet">
-                                    <strong>Improve usability</strong>
-                                    <p>Clarify the output and next step so the first use is easier for investors to understand and act on.</p>
+                                    <strong data-i18n="analysisBullet3Title">Improve usability</strong>
+                                    <p data-i18n="analysisBullet3Copy">Clarify the output and next step so the first use is easier for investors to understand and act on.</p>
                                 </li>
                             </ul>
                             <div class="showcase-metric-row">
                                 <span class="showcase-metric">Dify</span>
-                                <span class="showcase-metric">Alibaba Bailian</span>
-                                <span class="showcase-metric">Reusable Skills</span>
+                                <span class="showcase-metric" data-i18n="analysisMetric2">Alibaba Bailian</span>
+                                <span class="showcase-metric" data-i18n="analysisMetric3">Reusable Skills</span>
                             </div>
                         </div>
                         <div class="showcase-visual">
                             <div class="showcase-surface">
                                 <div class="showcase-surface-header">
-                                    <span>Capability Stack</span>
-                                    <span>Data Product · Workflow · Skill</span>
+                                    <span data-i18n="analysisSurfaceLabel">Capability Stack</span>
+                                    <span data-i18n="analysisSurfaceMeta">Data Product · Workflow · Skill</span>
                                 </div>
-                                <div class="showcase-surface-title">Make The Capability Usable</div>
-                                <p class="showcase-surface-copy">
+                                <div class="showcase-surface-title" data-i18n="analysisSurfaceTitle">Make The Capability Usable</div>
+                                <p class="showcase-surface-copy" data-i18n="analysisSurfaceCopy">
                                     The goal is not only to generate an answer, but to turn the capability into a Skill that investors can trust, understand, and reuse.
                                 </p>
                             </div>
                             <div class="showcase-mini-grid">
                                 <div class="showcase-mini-card">
-                                    <span>Step 01</span>
-                                    <strong>Define the use case</strong>
-                                    <p>Start from a real investment question instead of building a generic AI capability demo.</p>
+                                    <span data-i18n="analysisStep1Label">Step 01</span>
+                                    <strong data-i18n="analysisStep1Title">Define the use case</strong>
+                                    <p data-i18n="analysisStep1Copy">Start from a real investment question instead of building a generic AI capability demo.</p>
                                 </div>
                                 <div class="showcase-mini-card">
-                                    <span>Step 02</span>
-                                    <strong>Connect the data product</strong>
-                                    <p>Make the company&apos;s data capability the main workflow path instead of relying on generic generation alone.</p>
+                                    <span data-i18n="analysisStep2Label">Step 02</span>
+                                    <strong data-i18n="analysisStep2Title">Connect the data product</strong>
+                                    <p data-i18n="analysisStep2Copy">Make the company&apos;s data capability the main workflow path instead of relying on generic generation alone.</p>
                                 </div>
                                 <div class="showcase-mini-card">
-                                    <span>Step 03</span>
-                                    <strong>Package it as a Skill</strong>
-                                    <p>Turn the agent and workflow into a reusable Skill with more stable and readable output.</p>
+                                    <span data-i18n="analysisStep3Label">Step 03</span>
+                                    <strong data-i18n="analysisStep3Title">Package it as a Skill</strong>
+                                    <p data-i18n="analysisStep3Copy">Turn the agent and workflow into a reusable Skill with more stable and readable output.</p>
                                 </div>
                                 <div class="showcase-mini-card">
-                                    <span>Step 04</span>
-                                    <strong>Lower first-use friction</strong>
-                                    <p>Refine prompts, entry paths, and delivery so investors can reach a first useful result faster.</p>
+                                    <span data-i18n="analysisStep4Label">Step 04</span>
+                                    <strong data-i18n="analysisStep4Title">Lower first-use friction</strong>
+                                    <p data-i18n="analysisStep4Copy">Refine prompts, entry paths, and delivery so investors can reach a first useful result faster.</p>
                                 </div>
                             </div>
                         </div>
@@ -609,65 +621,65 @@
 
                     <article class="showcase-panel" hidden data-showcase-panel="content-workflow">
                         <div class="showcase-copy-block">
-                            <div class="showcase-panel-index">02 / WeChat Workflow</div>
-                            <h3 class="showcase-panel-title">WeChat Content Workflows And Skills</h3>
-                            <p class="showcase-panel-copy">
+                            <div class="showcase-panel-index" data-i18n="workflowIndex">02 / WeChat Workflow</div>
+                            <h3 class="showcase-panel-title" data-i18n="workflowTitle">WeChat Content Workflows And Skills</h3>
+                            <p class="showcase-panel-copy" data-i18n="workflowCopy">
                                 I also built official account production workflows that connect topic intake,
                                 drafting, editing, formatting, and output delivery, then packaged them into
                                 reusable Skills.
                             </p>
                             <ul class="showcase-bullet-list">
                                 <li class="showcase-bullet">
-                                    <strong>Content intake</strong>
-                                    <p>Collect topic direction, platform format, and publishing targets before the workflow starts.</p>
+                                    <strong data-i18n="workflowBullet1Title">Content intake</strong>
+                                    <p data-i18n="workflowBullet1Copy">Collect topic direction, platform format, and publishing targets before the workflow starts.</p>
                                 </li>
                                 <li class="showcase-bullet">
-                                    <strong>Reusable workflow nodes</strong>
-                                    <p>Use fixed steps for drafting, rewriting, formatting, and delivery so the process can be reused.</p>
+                                    <strong data-i18n="workflowBullet2Title">Reusable workflow nodes</strong>
+                                    <p data-i18n="workflowBullet2Copy">Use fixed steps for drafting, rewriting, formatting, and delivery so the process can be reused.</p>
                                 </li>
                                 <li class="showcase-bullet">
-                                    <strong>Faster content output</strong>
-                                    <p>Reduce repeated manual work and keep structure stable when output volume grows.</p>
+                                    <strong data-i18n="workflowBullet3Title">Faster content output</strong>
+                                    <p data-i18n="workflowBullet3Copy">Reduce repeated manual work and keep structure stable when output volume grows.</p>
                                 </li>
                             </ul>
                             <div class="showcase-metric-row">
-                                <span class="showcase-metric">Official account output</span>
-                                <span class="showcase-metric">Reusable Skills</span>
-                                <span class="showcase-metric">Publish-ready delivery</span>
+                                <span class="showcase-metric" data-i18n="workflowMetric1">Official account output</span>
+                                <span class="showcase-metric" data-i18n="workflowMetric2">Reusable Skills</span>
+                                <span class="showcase-metric" data-i18n="workflowMetric3">Publish-ready delivery</span>
                             </div>
                         </div>
                         <div class="showcase-visual">
                             <div class="showcase-surface">
                                 <div class="showcase-surface-header">
-                                    <span>Publishing Workflow</span>
-                                    <span>Topic · Draft · Format · Deliver</span>
+                                    <span data-i18n="workflowSurfaceLabel">Publishing Workflow</span>
+                                    <span data-i18n="workflowSurfaceMeta">Topic · Draft · Format · Deliver</span>
                                 </div>
-                                <div class="showcase-surface-title">Content Output That Can Be Reused</div>
-                                <p class="showcase-surface-copy">
+                                <div class="showcase-surface-title" data-i18n="workflowSurfaceTitle">Content Output That Can Be Reused</div>
+                                <p class="showcase-surface-copy" data-i18n="workflowSurfaceCopy">
                                     Instead of treating every article as a one-off task, I turn the process into
                                     a repeatable workflow that others can call directly.
                                 </p>
                             </div>
                             <div class="workflow-board">
                                 <div class="workflow-card">
-                                    <span>Node 01</span>
-                                    <strong>Topic Intake</strong>
-                                    <p>Collect topic direction, platform context, and output goal before drafting begins.</p>
+                                    <span data-i18n="workflowNode1Label">Node 01</span>
+                                    <strong data-i18n="workflowNode1Title">Topic Intake</strong>
+                                    <p data-i18n="workflowNode1Copy">Collect topic direction, platform context, and output goal before drafting begins.</p>
                                 </div>
                                 <div class="workflow-card">
-                                    <span>Node 02</span>
-                                    <strong>Draft Build</strong>
-                                    <p>Generate a first draft that already follows message hierarchy and platform tone.</p>
+                                    <span data-i18n="workflowNode2Label">Node 02</span>
+                                    <strong data-i18n="workflowNode2Title">Draft Build</strong>
+                                    <p data-i18n="workflowNode2Copy">Generate a first draft that already follows message hierarchy and platform tone.</p>
                                 </div>
                                 <div class="workflow-card">
-                                    <span>Node 03</span>
-                                    <strong>Edit &amp; Format</strong>
-                                    <p>Rewrite weak phrasing, sharpen logic, and prepare the format for final publishing.</p>
+                                    <span data-i18n="workflowNode3Label">Node 03</span>
+                                    <strong data-i18n="workflowNode3Title">Edit &amp; Format</strong>
+                                    <p data-i18n="workflowNode3Copy">Rewrite weak phrasing, sharpen logic, and prepare the format for final publishing.</p>
                                 </div>
                                 <div class="workflow-card">
-                                    <span>Node 04</span>
-                                    <strong>Delivery Skill</strong>
-                                    <p>Package the final flow as a reusable Skill that can support repeated content output.</p>
+                                    <span data-i18n="workflowNode4Label">Node 04</span>
+                                    <strong data-i18n="workflowNode4Title">Delivery Skill</strong>
+                                    <p data-i18n="workflowNode4Copy">Package the final flow as a reusable Skill that can support repeated content output.</p>
                                 </div>
                             </div>
                         </div>
@@ -675,31 +687,31 @@
 
                     <article class="showcase-panel" hidden data-showcase-panel="launch-prototype">
                         <div class="showcase-copy-block">
-                            <div class="showcase-panel-index">03 / Skill Demo</div>
-                            <h3 class="showcase-panel-title">Skill Demo Pages And Delivery Assets</h3>
-                            <p class="showcase-panel-copy">
+                            <div class="showcase-panel-index" data-i18n="demoIndex">03 / Skill Demo</div>
+                            <h3 class="showcase-panel-title" data-i18n="demoTitle">Skill Demo Pages And Delivery Assets</h3>
+                            <p class="showcase-panel-copy" data-i18n="demoCopy">
                                 After the agent or workflow is built, I turn it into demos, pages, and review-ready
                                 materials so the capability is easier for teams to evaluate and easier for users
                                 to understand.
                             </p>
                             <ul class="showcase-bullet-list">
                                 <li class="showcase-bullet">
-                                    <strong>Capability explanation</strong>
-                                    <p>Show clearly what the Skill does, what scene it serves, and why it matters.</p>
+                                    <strong data-i18n="demoBullet1Title">Capability explanation</strong>
+                                    <p data-i18n="demoBullet1Copy">Show clearly what the Skill does, what scene it serves, and why it matters.</p>
                                 </li>
                                 <li class="showcase-bullet">
-                                    <strong>Review-ready packaging</strong>
-                                    <p>Turn the built workflow into a form that teams can review, compare, and discuss.</p>
+                                    <strong data-i18n="demoBullet2Title">Review-ready packaging</strong>
+                                    <p data-i18n="demoBullet2Copy">Turn the built workflow into a form that teams can review, compare, and discuss.</p>
                                 </li>
                                 <li class="showcase-bullet">
-                                    <strong>Lower adoption barrier</strong>
-                                    <p>Give users a more visible and understandable path into a new capability.</p>
+                                    <strong data-i18n="demoBullet3Title">Lower adoption barrier</strong>
+                                    <p data-i18n="demoBullet3Copy">Give users a more visible and understandable path into a new capability.</p>
                                 </li>
                             </ul>
                             <div class="showcase-metric-row">
-                                <span class="showcase-metric">Demo page</span>
-                                <span class="showcase-metric">Usage path</span>
-                                <span class="showcase-metric">Review material</span>
+                                <span class="showcase-metric" data-i18n="demoMetric1">Demo page</span>
+                                <span class="showcase-metric" data-i18n="demoMetric2">Usage path</span>
+                                <span class="showcase-metric" data-i18n="demoMetric3">Review material</span>
                             </div>
                         </div>
                         <div class="showcase-visual">
@@ -707,33 +719,33 @@
                                 <div class="prototype-hero">
                                     <div>
                                         <div class="showcase-surface-header">
-                                            <span>Delivery Layer</span>
-                                            <span>Skill · Demo · Review</span>
+                                            <span data-i18n="demoSurfaceLabel">Delivery Layer</span>
+                                            <span data-i18n="demoSurfaceMeta">Skill · Demo · Review</span>
                                         </div>
-                                        <strong>Skill to Demo</strong>
-                                        <p>Turn a finished workflow into a visible asset that can be reviewed internally and understood externally.</p>
+                                        <strong data-i18n="demoSurfaceTitle">Skill to Demo</strong>
+                                        <p data-i18n="demoSurfaceCopy">Turn a finished workflow into a visible asset that can be reviewed internally and understood externally.</p>
                                     </div>
                                     <div class="prototype-stats">
-                                        <span class="prototype-stat">Review page</span>
-                                        <span class="prototype-stat">Usage guidance</span>
-                                        <span class="prototype-stat">Demo asset</span>
+                                        <span class="prototype-stat" data-i18n="demoStat1">Review page</span>
+                                        <span class="prototype-stat" data-i18n="demoStat2">Usage guidance</span>
+                                        <span class="prototype-stat" data-i18n="demoStat3">Demo asset</span>
                                     </div>
                                 </div>
                                 <div class="prototype-side">
                                     <div class="showcase-mini-card">
-                                        <span>Layer 01</span>
-                                        <strong>Visible capability</strong>
-                                        <p>Make the finished workflow easier to see, explain, and evaluate.</p>
+                                        <span data-i18n="demoLayer1Label">Layer 01</span>
+                                        <strong data-i18n="demoLayer1Title">Visible capability</strong>
+                                        <p data-i18n="demoLayer1Copy">Make the finished workflow easier to see, explain, and evaluate.</p>
                                     </div>
                                     <div class="showcase-mini-card">
-                                        <span>Layer 02</span>
-                                        <strong>Clear use path</strong>
-                                        <p>Show users how the capability should be entered and what they can expect from it.</p>
+                                        <span data-i18n="demoLayer2Label">Layer 02</span>
+                                        <strong data-i18n="demoLayer2Title">Clear use path</strong>
+                                        <p data-i18n="demoLayer2Copy">Show users how the capability should be entered and what they can expect from it.</p>
                                     </div>
                                     <div class="showcase-mini-card">
-                                        <span>Layer 03</span>
-                                        <strong>Faster feedback</strong>
-                                        <p>Give teams a clearer object to discuss instead of describing the capability only in words.</p>
+                                        <span data-i18n="demoLayer3Label">Layer 03</span>
+                                        <strong data-i18n="demoLayer3Title">Faster feedback</strong>
+                                        <p data-i18n="demoLayer3Copy">Give teams a clearer object to discuss instead of describing the capability only in words.</p>
                                     </div>
                                 </div>
                             </div>
@@ -746,9 +758,9 @@
         <section id="scenes">
             <div class="section-shell">
                 <div class="scenes-head fade-up">
-                    <div class="section-kicker">Scenarios</div>
-                    <h2 class="section-title">Where The Value Shows</h2>
-                    <p class="section-copy">
+                    <div class="section-kicker" data-i18n="scenesKicker">Scenarios</div>
+                    <h2 class="section-title" data-i18n="scenesTitle">Where The Value Shows</h2>
+                    <p class="section-copy" data-i18n="scenesCopy">
                         The value is not only in building an agent. It comes from connecting the company&apos;s
                         data product, the workflow, the Skill package, and the final usage path so investors
                         can understand and use the capability more easily.
@@ -761,66 +773,66 @@
                         </div>
                         <div class="scenario-feature-overlay" aria-hidden="true"></div>
                         <div class="scenario-content">
-                            <span>Scene 01 / Data Product + Skill</span>
-                            <h3>Build scenario agents in Dify and Alibaba Bailian, then package them as Skills</h3>
-                            <p>
+                            <span data-i18n="scene1Label">Scene 01 / Data Product + Skill</span>
+                            <h3 data-i18n="scene1Title">Build scenario agents in Dify and Alibaba Bailian, then package them as Skills</h3>
+                            <p data-i18n="scene1Copy">
                                 This work starts with the company&apos;s data product, but it only becomes useful when
                                 the workflow is clear, the output is readable, and the entry threshold for investors
                                 is lower.
                             </p>
                             <div class="scenario-metrics">
-                                <span class="scenario-metric">Company data product</span>
-                                <span class="scenario-metric">Skills</span>
-                                <span class="scenario-metric">Investor usability</span>
+                                <span class="scenario-metric" data-i18n="scene1Metric1">Company data product</span>
+                                <span class="scenario-metric" data-i18n="scene1Metric2">Skills</span>
+                                <span class="scenario-metric" data-i18n="scene1Metric3">Investor usability</span>
                             </div>
                         </div>
                     </article>
                     <div class="scenario-stack">
                         <article class="scenario-card fade-up">
-                            <span>Scene 02</span>
-                            <strong>Investor Onboarding</strong>
-                            <p>When the capability is strong but the entry barrier is still high, I refine the entry path, prompt design, and output structure so investors reach first successful use faster.</p>
+                            <span data-i18n="scene2Label">Scene 02</span>
+                            <strong data-i18n="scene2Title">Investor Onboarding</strong>
+                            <p data-i18n="scene2Copy">When the capability is strong but the entry barrier is still high, I refine the entry path, prompt design, and output structure so investors reach first successful use faster.</p>
                             <div class="scenario-card-grid">
                                 <div class="scenario-card-cell">
-                                    <small>Need</small>
-                                    <b>Lower onboarding friction</b>
+                                    <small data-i18n="scene2NeedLabel">Need</small>
+                                    <b data-i18n="scene2NeedValue">Lower onboarding friction</b>
                                 </div>
                                 <div class="scenario-card-cell">
-                                    <small>Outcome</small>
-                                    <b>Smoother first use</b>
+                                    <small data-i18n="scene2OutcomeLabel">Outcome</small>
+                                    <b data-i18n="scene2OutcomeValue">Smoother first use</b>
                                 </div>
                             </div>
                         </article>
                         <article class="scenario-card fade-up">
-                            <span>Scene 03</span>
-                            <strong>WeChat Content Skills</strong>
-                            <p>For WeChat official-account content production, I connect topic intake, drafting, editing, formatting, and publishing into one workflow, then package it as reusable Skills for ongoing team use.</p>
+                            <span data-i18n="scene3Label">Scene 03</span>
+                            <strong data-i18n="scene3Title">WeChat Content Skills</strong>
+                            <p data-i18n="scene3Copy">For WeChat official-account content production, I connect topic intake, drafting, editing, formatting, and publishing into one workflow, then package it as reusable Skills for ongoing team use.</p>
                             <div class="scenario-card-media">
-                                <img src="scene-lingyun-home.png" alt="AI assistant homepage showcase">
+                                <img src="scene-lingyun-home.png" alt="AI assistant homepage showcase" id="sceneCardImage">
                             </div>
                             <div class="scenario-card-grid">
                                 <div class="scenario-card-cell">
-                                    <small>Need</small>
-                                    <b>Stable content operations</b>
+                                    <small data-i18n="scene3NeedLabel">Need</small>
+                                    <b data-i18n="scene3NeedValue">Stable content operations</b>
                                 </div>
                                 <div class="scenario-card-cell">
-                                    <small>Outcome</small>
-                                    <b>Reusable content Skills</b>
+                                    <small data-i18n="scene3OutcomeLabel">Outcome</small>
+                                    <b data-i18n="scene3OutcomeValue">Reusable content Skills</b>
                                 </div>
                             </div>
                         </article>
                         <article class="scenario-card fade-up">
-                            <span>Scene 04</span>
-                            <strong>Skill Demo Delivery</strong>
-                            <p>After a workflow is built, I turn the capability into clearer pages and delivery assets that are easier to show, review, and understand.</p>
+                            <span data-i18n="scene4Label">Scene 04</span>
+                            <strong data-i18n="scene4Title">Skill Demo Delivery</strong>
+                            <p data-i18n="scene4Copy">After a workflow is built, I turn the capability into clearer pages and delivery assets that are easier to show, review, and understand.</p>
                             <div class="scenario-card-grid">
                                 <div class="scenario-card-cell">
-                                    <small>Need</small>
-                                    <b>Visible capability story</b>
+                                    <small data-i18n="scene4NeedLabel">Need</small>
+                                    <b data-i18n="scene4NeedValue">Visible capability story</b>
                                 </div>
                                 <div class="scenario-card-cell">
-                                    <small>Outcome</small>
-                                    <b>Review-ready delivery</b>
+                                    <small data-i18n="scene4OutcomeLabel">Outcome</small>
+                                    <b data-i18n="scene4OutcomeValue">Review-ready delivery</b>
                                 </div>
                             </div>
                         </article>
@@ -832,9 +844,9 @@
         <section id="experience">
             <div class="section-shell experience-grid">
                 <div class="section-head fade-up">
-                    <div class="section-kicker">Experience</div>
-                    <h2 class="section-title">Product Ops In Practice</h2>
-                    <p class="section-copy">
+                    <div class="section-kicker" data-i18n="experienceKicker">Experience</div>
+                    <h2 class="section-title" data-i18n="experienceTitle">Product Ops In Practice</h2>
+                    <p class="section-copy" data-i18n="experienceCopy">
                         My core experience is AI product operations: using company data products to build
                         scenario-based agents, workflows, and Skills, then making them easier for investors
                         to understand and use.
@@ -843,27 +855,27 @@
                 <div class="experience-stack">
                     <article class="experience-card fade-up">
                         <div class="experience-date">2026.01 - 2026.03</div>
-                        <h3 class="experience-role">AI Product Operations Intern <span>Today Investment Technology</span></h3>
+                        <h3 class="experience-role" data-i18n="experienceRole1">AI Product Operations Intern <span>Today Investment Technology</span></h3>
                         <ul class="experience-points">
-                            <li>Used the company&apos;s data products to build scenario-based agents and workflows in Dify and Alibaba Bailian, then packaged them into reusable Skills.</li>
-                            <li>Built WeChat official account production workflows and related Skills to support content output.</li>
-                            <li>Improved onboarding and lowered the barrier for investors to understand and use AI capabilities.</li>
+                            <li data-i18n="experienceRole1Point1">Used the company&apos;s data products to build scenario-based agents and workflows in Dify and Alibaba Bailian, then packaged them into reusable Skills.</li>
+                            <li data-i18n="experienceRole1Point2">Built WeChat official account production workflows and related Skills to support content output.</li>
+                            <li data-i18n="experienceRole1Point3">Improved onboarding and lowered the barrier for investors to understand and use AI capabilities.</li>
                         </ul>
                     </article>
                     <article class="experience-card fade-up">
                         <div class="experience-date">2025.12 - 2026.03</div>
-                        <h3 class="experience-role">Agent &amp; Workflow Builder <span>Independent Projects</span></h3>
+                        <h3 class="experience-role" data-i18n="experienceRole2">Agent &amp; Workflow Builder <span>Independent Projects</span></h3>
                         <ul class="experience-points">
-                            <li>Used tools such as Coze and Dify to build workflows for analysis and content generation use cases.</li>
-                            <li>Translated product needs into agent tasks, workflow nodes, and structured deliverables.</li>
+                            <li data-i18n="experienceRole2Point1">Used tools such as Coze and Dify to build workflows for analysis and content generation use cases.</li>
+                            <li data-i18n="experienceRole2Point2">Translated product needs into agent tasks, workflow nodes, and structured deliverables.</li>
                         </ul>
                     </article>
                     <article class="experience-card fade-up">
                         <div class="experience-date">2025.02 - 2025.05</div>
-                        <h3 class="experience-role">Content Operations Intern <span>Perfect World</span></h3>
+                        <h3 class="experience-role" data-i18n="experienceRole3">Content Operations Intern <span>Perfect World</span></h3>
                         <ul class="experience-points">
-                            <li>Worked on short-form content strategy, scripting, performance review, and campaign execution.</li>
-                            <li>Built a stronger understanding of conversion logic, user needs, and cross-functional delivery.</li>
+                            <li data-i18n="experienceRole3Point1">Worked on short-form content strategy, scripting, performance review, and campaign execution.</li>
+                            <li data-i18n="experienceRole3Point2">Built a stronger understanding of conversion logic, user needs, and cross-functional delivery.</li>
                         </ul>
                     </article>
                 </div>
@@ -873,25 +885,26 @@
         <section id="contact">
             <div class="section-shell">
                 <div class="contact-panel fade-up">
-                    <div class="section-kicker">Contact</div>
-                    <h2 class="contact-title">Looking for AI Product Ops?</h2>
-                    <p class="contact-copy">
+                    <div class="section-kicker" data-i18n="contactKicker">Contact</div>
+                    <h2 class="contact-title" data-i18n="contactTitle">Looking for AI Product Ops?</h2>
+                    <p class="contact-copy" data-i18n="contactCopy">
                         I am most useful in roles where product understanding, Dify and Alibaba Bailian workflow building,
                         Skills packaging, and user adoption all matter at the same time. If that is the brief,
                         I would love to talk.
                     </p>
                     <div class="contact-actions">
-                        <a class="contact-cta" href="mailto:2581916082@qq.com">Email Me</a>
+                        <a class="contact-cta" href="mailto:2581916082@qq.com" data-i18n="contactCta">Email Me</a>
                         <a class="contact-link" href="tel:17328030629">17328030629</a>
-                        <a class="contact-link" href="https://hwiwuwjbsk1-cpu.github.io/resume/" target="_blank" rel="noreferrer">Live Resume</a>
-                        <a class="contact-link" href="https://pan.baidu.com/s/1VcrqRLwhRTiZhjXcQTJYlA?pwd=5tfu" target="_blank" rel="noreferrer">Project Files</a>
+                        <a class="contact-link" href="https://hwiwuwjbsk1-cpu.github.io/resume/" target="_blank" rel="noreferrer" data-i18n="contactLink1">Live Resume</a>
+                        <a class="contact-link" href="https://pan.baidu.com/s/1VcrqRLwhRTiZhjXcQTJYlA?pwd=5tfu" target="_blank" rel="noreferrer" data-i18n="contactLink2">Project Files</a>
                     </div>
-                    <p class="footer-note">郭钧贤 · AI Product Operations · Agents &amp; Workflow Systems</p>
+                    <p class="footer-note" data-i18n="footerNote">郭钧贤 · AI Product Operations · Agents &amp; Workflow Systems</p>
                 </div>
             </div>
         </section>
     </main>
 
+    <script src="resume-i18n.js"></script>
     <script>
         const siteHeader = document.getElementById('siteHeader');
         const headerHoverShell = document.getElementById('headerHoverShell');
@@ -902,7 +915,30 @@
         const showcaseTabs = Array.from(document.querySelectorAll('[data-showcase-tab]'));
         const showcasePanels = Array.from(document.querySelectorAll('[data-showcase-panel]'));
         const showcaseRailItems = Array.from(document.querySelectorAll('[data-showcase-rail]'));
+        const i18nNodes = Array.from(document.querySelectorAll('[data-i18n]'));
+        const languageToggles = Array.from(document.querySelectorAll('[data-lang-toggle]'));
+        const brandLockup = document.getElementById('brandLockup');
+        const languageSwitch = document.getElementById('languageSwitch');
+        const sceneCardImage = document.getElementById('sceneCardImage');
+        const LANGUAGE_STORAGE_KEY = 'resume-language';
         let headerHoverTimer = null;
+
+        const defaultCopy = Object.fromEntries(
+            i18nNodes.map((node) => [node.dataset.i18n, node.innerHTML])
+        );
+        const defaultMetadata = {
+            pageTitle: document.title,
+            brandHomeAriaLabel: brandLockup ? brandLockup.getAttribute('aria-label') : '',
+            languageSwitchAriaLabel: languageSwitch ? languageSwitch.getAttribute('aria-label') : '',
+            sceneCardImageAlt: sceneCardImage ? sceneCardImage.getAttribute('alt') : ''
+        };
+        const zhMetadata = {
+            pageTitle: '郭钧贤 | AI产品运营',
+            brandHomeAriaLabel: '郭钧贤 首页',
+            languageSwitchAriaLabel: '语言切换',
+            sceneCardImageAlt: 'AI 助手主页展示'
+        };
+        const zhTranslations = window.resumeZhTranslations || {};
 
         function syncHeader() {
             siteHeader.classList.toggle('is-scrolled', window.scrollY > 18);
@@ -1015,6 +1051,55 @@
             });
         }
 
+        function getStoredLanguage() {
+            try {
+                const storedLanguage = window.localStorage.getItem(LANGUAGE_STORAGE_KEY);
+                return storedLanguage === 'zh' ? 'zh' : 'en';
+            } catch (error) {
+                return 'en';
+            }
+        }
+
+        function setLanguage(lang) {
+            const nextLanguage = lang === 'zh' ? 'zh' : 'en';
+            const copyPack = nextLanguage === 'zh' ? zhTranslations : defaultCopy;
+            const metaPack = nextLanguage === 'zh' ? zhMetadata : defaultMetadata;
+
+            document.documentElement.lang = nextLanguage === 'zh' ? 'zh-CN' : 'en';
+            document.title = metaPack.pageTitle;
+
+            if (brandLockup) {
+                brandLockup.setAttribute('aria-label', metaPack.brandHomeAriaLabel);
+            }
+
+            if (languageSwitch) {
+                languageSwitch.setAttribute('aria-label', metaPack.languageSwitchAriaLabel);
+            }
+
+            if (sceneCardImage) {
+                sceneCardImage.alt = metaPack.sceneCardImageAlt;
+            }
+
+            i18nNodes.forEach((node) => {
+                const key = node.dataset.i18n;
+                if (copyPack[key]) {
+                    node.innerHTML = copyPack[key];
+                }
+            });
+
+            languageToggles.forEach((toggle) => {
+                const isActive = toggle.dataset.langToggle === nextLanguage;
+                toggle.classList.toggle('is-active', isActive);
+                toggle.setAttribute('aria-pressed', String(isActive));
+            });
+
+            try {
+                window.localStorage.setItem(LANGUAGE_STORAGE_KEY, nextLanguage);
+            } catch (error) {
+                // Ignore storage issues and keep the switch working for the current session.
+            }
+        }
+
         showcaseTabs.forEach((tab) => {
             tab.addEventListener('click', () => {
                 setActiveShowcase(tab.dataset.showcaseTab);
@@ -1024,6 +1109,12 @@
         showcaseRailItems.forEach((item) => {
             item.addEventListener('click', () => {
                 setActiveShowcase(item.dataset.showcaseRail);
+            });
+        });
+
+        languageToggles.forEach((toggle) => {
+            toggle.addEventListener('click', () => {
+                setLanguage(toggle.dataset.langToggle);
             });
         });
 
@@ -1072,6 +1163,7 @@
         if (showcaseTabs.length > 0) {
             setActiveShowcase(showcaseTabs[0].dataset.showcaseTab);
         }
+        setLanguage(getStoredLanguage());
         window.addEventListener('scroll', syncHeader, { passive: true });
     </script>
 </body>
