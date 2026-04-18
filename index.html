@@ -1235,16 +1235,28 @@
 
         fadeNodes.forEach((node) => observer.observe(node));
 
-        mediaVideos.forEach((video) => {
+        function applyVideoStartTime(video) {
+            if (video.dataset.startApplied === 'true') {
+                return;
+            }
+
             const startTime = Number(video.dataset.start || 0);
-            const syncVideoStart = () => {
-                if (Number.isFinite(startTime) && startTime > 0) {
-                    try {
-                        video.currentTime = startTime;
-                    } catch (error) {
-                        return;
-                    }
-                }
+            if (!Number.isFinite(startTime) || startTime <= 0) {
+                video.dataset.startApplied = 'true';
+                return;
+            }
+
+            try {
+                video.currentTime = startTime;
+                video.dataset.startApplied = 'true';
+            } catch (error) {
+                // Ignore seek failures until metadata becomes available.
+            }
+        }
+
+        function playVisibleVideo(video) {
+            const tryPlay = () => {
+                applyVideoStartTime(video);
                 const playPromise = video.play();
                 if (playPromise && typeof playPromise.catch === 'function') {
                     playPromise.catch(() => {});
@@ -1252,10 +1264,32 @@
             };
 
             if (video.readyState >= 1) {
-                syncVideoStart();
-            } else {
-                video.addEventListener('loadedmetadata', syncVideoStart, { once: true });
+                tryPlay();
+                return;
             }
+
+            video.addEventListener('loadedmetadata', tryPlay, { once: true });
+            video.load();
+        }
+
+        const videoObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                const video = entry.target;
+                if (entry.isIntersecting) {
+                    playVisibleVideo(video);
+                    return;
+                }
+
+                if (!video.paused) {
+                    video.pause();
+                }
+            });
+        }, {
+            threshold: 0.35
+        });
+
+        mediaVideos.forEach((video) => {
+            videoObserver.observe(video);
         });
 
         function setActiveShowcase(panelName) {
