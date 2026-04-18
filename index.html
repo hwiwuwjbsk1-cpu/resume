@@ -113,40 +113,35 @@
             position:relative;min-height:100svh;display:flex;align-items:center;justify-content:center;overflow:hidden;background:#000
         }
         .opening-stage::before{
-            content:'';position:absolute;inset:0;z-index:1;pointer-events:none;opacity:.2;
+            content:'';position:absolute;inset:0;z-index:1;pointer-events:none;opacity:.08;
             background:
-                linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
-            background-size:90px 90px;
-            mask-image:radial-gradient(circle at center, black 24%, transparent 84%);
+                radial-gradient(circle at 50% 50%, rgba(255,255,255,.06), transparent 26%),
+                radial-gradient(circle at 50% 50%, rgba(255,255,255,.03), transparent 52%);
         }
         .opening-video-wrap,.opening-video-wrap video,.opening-video-mask{position:absolute;inset:0}
         .opening-video-wrap{
-            opacity:0;transform:scale(1.12);filter:saturate(.9) contrast(1.06);
+            opacity:0;transform:scale(1.08);filter:saturate(.96) contrast(1.02);
             animation:openingVideoReveal 5.2s cubic-bezier(.19,1,.22,1) forwards
         }
         .opening-video-mask{
             z-index:1;
             background:
-                radial-gradient(circle at 50% 50%, rgba(0,0,0,.12), rgba(0,0,0,.52) 52%, rgba(0,0,0,.88) 100%),
-                linear-gradient(180deg, rgba(0,0,0,.96) 0%, rgba(0,0,0,.78) 24%, rgba(0,0,0,.34) 54%, rgba(0,0,0,.74) 100%);
+                linear-gradient(180deg, rgba(0,0,0,.94) 0%, rgba(0,0,0,.76) 18%, rgba(0,0,0,.12) 58%, rgba(0,0,0,.36) 100%);
             animation:openingMaskFade 5.2s ease forwards
         }
-        .opening-center{position:relative;z-index:2;display:grid;gap:14px;place-items:center;text-align:center;padding:0 24px}
-        .opening-brand{display:inline-flex;align-items:center;gap:clamp(14px,2.2vw,26px)}
+        .opening-center{position:relative;z-index:2;display:grid;place-items:center;text-align:center;padding:0 24px;pointer-events:none}
+        .opening-brand{
+            position:relative;display:grid;place-items:center;width:clamp(56px,8vw,112px);height:clamp(56px,8vw,112px)
+        }
+        .opening-brand::after{
+            content:'';position:absolute;inset:-18%;border-radius:50%;
+            border:1px solid rgba(255,255,255,.12);opacity:0;transform:scale(.3);
+            animation:openingBrandPulse 5.2s cubic-bezier(.19,1,.22,1) forwards
+        }
         .opening-brand-mark{
-            width:clamp(42px,5.6vw,76px);height:clamp(42px,5.6vw,76px);
-            transform:scale(.14) rotate(-12deg);transform-origin:center;opacity:.88;
+            width:clamp(34px,4.4vw,68px);height:clamp(34px,4.4vw,68px);
+            transform:scale(.12) rotate(-18deg);transform-origin:center;opacity:.88;
             animation:openingMarkGrow 5.2s cubic-bezier(.19,1,.22,1) forwards
-        }
-        .opening-brand-wordmark{
-            font-size:clamp(2.4rem,5.7vw,5.8rem);font-weight:800;letter-spacing:-.08em;line-height:.92;color:#fff;
-            opacity:0;transform:translateX(-16px) scale(.98);filter:blur(10px);
-            animation:openingWordReveal 5.2s cubic-bezier(.19,1,.22,1) forwards
-        }
-        .opening-caption{
-            max-width:720px;color:rgba(255,255,255,.62);font-size:clamp(.9rem,1.5vw,1rem);letter-spacing:.1em;text-transform:uppercase;
-            opacity:0;transform:translateY(10px);animation:openingCaptionReveal 5.2s ease forwards
         }
         .opening-skip,.opening-enter{
             position:absolute;z-index:3;border-radius:999px;border:1px solid rgba(255,255,255,.16);
@@ -165,29 +160,26 @@
             animation:openingHintFloat 2.2s ease-in-out infinite
         }
         @keyframes openingMarkGrow{
-            0%{transform:scale(.14) rotate(-12deg);opacity:.9}
-            18%{transform:scale(.18) rotate(-9deg)}
-            42%{transform:scale(.66) rotate(-2deg)}
-            68%{transform:scale(1.02) rotate(0deg);opacity:1}
-            100%{transform:scale(1) rotate(0deg);opacity:1}
+            0%{transform:scale(.12) rotate(-18deg);opacity:.92;filter:blur(0)}
+            20%{transform:scale(.18) rotate(-12deg);opacity:1}
+            44%{transform:scale(.84) rotate(-2deg);opacity:1}
+            58%{transform:scale(1) rotate(0deg);opacity:1}
+            76%{transform:scale(1.26) rotate(4deg);opacity:.22;filter:blur(6px)}
+            100%{transform:scale(1.44) rotate(6deg);opacity:0;filter:blur(10px)}
         }
-        @keyframes openingWordReveal{
-            0%,28%{opacity:0;transform:translateX(-18px) scale(.98);filter:blur(12px)}
-            46%{opacity:.5;transform:translateX(-8px) scale(.99);filter:blur(7px)}
-            68%,100%{opacity:1;transform:translateX(0) scale(1);filter:blur(0)}
-        }
-        @keyframes openingCaptionReveal{
-            0%,44%{opacity:0;transform:translateY(10px)}
-            68%,100%{opacity:1;transform:translateY(0)}
+        @keyframes openingBrandPulse{
+            0%,24%{opacity:0;transform:scale(.3)}
+            48%{opacity:.34;transform:scale(1)}
+            100%{opacity:0;transform:scale(1.9)}
         }
         @keyframes openingVideoReveal{
-            0%,40%{opacity:0;transform:scale(1.12)}
-            68%{opacity:.78}
+            0%,52%{opacity:0;transform:scale(1.08)}
+            74%{opacity:.72}
             100%{opacity:1;transform:scale(1)}
         }
         @keyframes openingMaskFade{
-            0%,32%{opacity:1}
-            100%{opacity:.66}
+            0%,52%{opacity:1}
+            100%{opacity:.08}
         }
         @keyframes openingDockReveal{
             0%,72%{opacity:0;transform:translateX(-50%) translateY(10px)}
@@ -549,9 +541,7 @@
             <div class="opening-center">
                 <div class="opening-brand">
                     <span class="brand-mark opening-brand-mark" aria-hidden="true"><span class="brand-core"></span></span>
-                    <span class="opening-brand-wordmark">郭钧贤</span>
                 </div>
-                <p class="opening-caption" data-i18n="openingCaption">AI Product Operations · Agents · Workflows</p>
             </div>
             <div class="opening-dock">
                 <button class="opening-enter" type="button" id="openingEnter" data-i18n="openingEnter">Enter Site</button>
