@@ -1,4 +1,8 @@
 window.resumeZhTranslations = {
+    openingSkip: '跳过动画',
+    openingCaption: 'AI产品运营 · 智能体 · 工作流',
+    openingEnter: '进入网站',
+    openingHint: '下滑进入网站',
     navWorkflows: '工作流',
     navSystems: '能力系统',
     navAbout: '关于',
