@@ -42,11 +42,12 @@
         .site-header.is-scrolled{background:rgba(0,0,0,.72);border-bottom:1px solid rgba(255,255,255,.06);backdrop-filter:blur(18px)}
         .header-shell{min-height:var(--header-height);padding:18px var(--page-pad);display:flex;align-items:center;justify-content:space-between;gap:20px}
         .brand-lockup{display:inline-flex;align-items:center;gap:14px;font-weight:700;letter-spacing:-.02em;font-size:1.2rem}
-        .brand-mark{position:relative;width:28px;height:28px;flex:0 0 28px}
-        .brand-mark::before,.brand-mark::after{content:'';position:absolute;inset:2px;border:2px solid rgba(255,255,255,.92);border-radius:50%}
-        .brand-mark::before{transform:rotate(-30deg) scaleX(1.02) scaleY(.58)}
-        .brand-mark::after{transform:rotate(30deg) scaleX(1.02) scaleY(.58)}
-        .brand-core{position:absolute;left:50%;top:50%;width:6px;height:6px;border-radius:50%;background:#fff;transform:translate(-50%,-50%);box-shadow:0 0 18px rgba(255,255,255,.44)}
+        .brand-mark{
+            display:inline-flex;align-items:center;justify-content:center;
+            width:28px;height:28px;flex:0 0 28px;color:#fff
+        }
+        .brand-mark-svg{display:block;width:100%;height:100%;overflow:visible}
+        .brand-mark-path{fill:currentColor}
         .header-nav{display:flex;align-items:center;gap:34px}
         .header-nav-link,.header-nav-trigger{
             position:relative;display:inline-flex;align-items:center;gap:8px;
@@ -113,36 +114,61 @@
             position:relative;min-height:100svh;display:flex;align-items:center;justify-content:center;overflow:hidden;background:#000
         }
         .opening-stage::before{
-            content:'';position:absolute;inset:0;z-index:1;pointer-events:none;opacity:.08;
+            content:'';position:absolute;inset:-24%;z-index:0;pointer-events:none;
             background:
-                radial-gradient(circle at 50% 50%, rgba(255,255,255,.06), transparent 26%),
-                radial-gradient(circle at 50% 50%, rgba(255,255,255,.03), transparent 52%);
+                radial-gradient(circle at center, rgba(255,255,255,.09), rgba(255,255,255,.03) 16%, transparent 34%),
+                radial-gradient(circle at center, rgba(255,255,255,.03), transparent 52%);
+            opacity:.26;transform:scale(.72);animation:openingFieldPulse 5.6s cubic-bezier(.19,1,.22,1) forwards
         }
         .opening-video-wrap,.opening-video-wrap video,.opening-video-mask{position:absolute;inset:0}
         .opening-video-wrap{
-            opacity:0;transform:scale(1.08);filter:saturate(.96) contrast(1.02);
-            animation:openingVideoReveal 5.2s cubic-bezier(.19,1,.22,1) forwards
+            z-index:1;opacity:0;transform:scale(1.16);filter:saturate(.96) contrast(1.04) blur(18px);
+            animation:openingVideoReveal 5.6s cubic-bezier(.19,1,.22,1) forwards
         }
         .opening-video-mask{
             z-index:1;
             background:
-                linear-gradient(180deg, rgba(0,0,0,.94) 0%, rgba(0,0,0,.76) 18%, rgba(0,0,0,.12) 58%, rgba(0,0,0,.36) 100%);
-            animation:openingMaskFade 5.2s ease forwards
+                radial-gradient(circle at center, rgba(0,0,0,.68) 0%, rgba(0,0,0,.88) 34%, rgba(0,0,0,.98) 100%),
+                linear-gradient(180deg, rgba(0,0,0,.98) 0%, rgba(0,0,0,.88) 18%, rgba(0,0,0,.36) 62%, rgba(0,0,0,.48) 100%);
+            animation:openingMaskFade 5.6s ease forwards
         }
         .opening-center{position:relative;z-index:2;display:grid;place-items:center;text-align:center;padding:0 24px;pointer-events:none}
         .opening-brand{
-            position:relative;display:grid;place-items:center;width:clamp(56px,8vw,112px);height:clamp(56px,8vw,112px)
+            position:relative;display:grid;place-items:center;width:clamp(88px,10vw,148px);height:clamp(88px,10vw,148px);
+            animation:openingBrandDrift 5.6s cubic-bezier(.19,1,.22,1) forwards
+        }
+        .opening-brand::before{
+            content:'';position:absolute;inset:-26%;border-radius:50%;
+            background:radial-gradient(circle, rgba(255,255,255,.26) 0%, rgba(255,255,255,.06) 24%, transparent 58%);
+            filter:blur(16px);opacity:0;animation:openingAuraPulse 5.6s cubic-bezier(.19,1,.22,1) forwards
         }
         .opening-brand::after{
-            content:'';position:absolute;inset:-18%;border-radius:50%;
-            border:1px solid rgba(255,255,255,.12);opacity:0;transform:scale(.3);
-            animation:openingBrandPulse 5.2s cubic-bezier(.19,1,.22,1) forwards
+            content:'';position:absolute;inset:-70%;border-radius:50%;
+            background:
+                conic-gradient(from 185deg, transparent 0deg, rgba(255,255,255,.24) 54deg, transparent 136deg, rgba(255,255,255,.12) 196deg, transparent 288deg, rgba(255,255,255,.08) 334deg, transparent 360deg);
+            filter:blur(26px);opacity:0;animation:openingTunnelSpin 5.6s cubic-bezier(.19,1,.22,1) forwards
         }
-        .opening-brand-mark{
-            width:clamp(34px,4.4vw,68px);height:clamp(34px,4.4vw,68px);
-            transform:scale(.12) rotate(-18deg);transform-origin:center;opacity:.88;
-            animation:openingMarkGrow 5.2s cubic-bezier(.19,1,.22,1) forwards
+        .opening-brand-streak,.opening-brand-logo{
+            position:absolute;display:block;width:100%;height:100%;overflow:visible
         }
+        .opening-brand-streak{inset:-14%}
+        .opening-brand-streak ellipse{
+            fill:none;stroke:#fff;stroke-width:1.3;stroke-linecap:round;stroke-linejoin:round;
+            stroke-dasharray:56 128;stroke-dashoffset:86;opacity:0;
+            filter:drop-shadow(0 0 12px rgba(255,255,255,.96)) drop-shadow(0 0 28px rgba(255,255,255,.44));
+            animation:openingOrbitTrace 5.6s cubic-bezier(.19,1,.22,1) forwards
+        }
+        .opening-brand-logo{
+            opacity:0;transform:scale(.76) rotate(-7deg);transform-origin:center;
+            filter:drop-shadow(0 0 18px rgba(255,255,255,.2));
+            animation:openingLogoCarrier 5.6s cubic-bezier(.19,1,.22,1) forwards
+        }
+        .opening-brand-trace-path{
+            fill:none;stroke:rgba(255,255,255,.98);stroke-width:.82;stroke-linejoin:round;stroke-linecap:round;
+            stroke-dasharray:1;stroke-dashoffset:1;opacity:0;
+            animation:openingLogoTrace 5.6s cubic-bezier(.19,1,.22,1) forwards
+        }
+        .opening-brand-solid-path{fill:#fff;opacity:0;animation:openingLogoFill 5.6s cubic-bezier(.19,1,.22,1) forwards}
         .opening-skip,.opening-enter{
             position:absolute;z-index:3;border-radius:999px;border:1px solid rgba(255,255,255,.16);
             background:rgba(0,0,0,.24);backdrop-filter:blur(12px);color:#fff;font-weight:800;
@@ -152,42 +178,86 @@
         .opening-skip{top:24px;right:var(--page-pad);padding:11px 16px;font-size:.84rem}
         .opening-dock{
             position:absolute;left:50%;bottom:30px;z-index:3;display:grid;gap:10px;justify-items:center;
-            transform:translateX(-50%);opacity:0;animation:openingDockReveal 5.2s ease forwards
+            transform:translateX(-50%);opacity:0;animation:openingDockReveal 5.6s ease forwards
         }
         .opening-enter{position:relative;padding:13px 20px;font-size:.92rem}
         .opening-hint{
             color:rgba(255,255,255,.5);font-size:.82rem;letter-spacing:.14em;text-transform:uppercase;
             animation:openingHintFloat 2.2s ease-in-out infinite
         }
-        @keyframes openingMarkGrow{
-            0%{transform:scale(.12) rotate(-18deg);opacity:.92;filter:blur(0)}
-            20%{transform:scale(.18) rotate(-12deg);opacity:1}
-            44%{transform:scale(.84) rotate(-2deg);opacity:1}
-            58%{transform:scale(1) rotate(0deg);opacity:1}
-            76%{transform:scale(1.26) rotate(4deg);opacity:.22;filter:blur(6px)}
-            100%{transform:scale(1.44) rotate(6deg);opacity:0;filter:blur(10px)}
+        @keyframes openingFieldPulse{
+            0%,12%{opacity:.18;transform:scale(.72)}
+            40%{opacity:.42;transform:scale(1)}
+            100%{opacity:.56;transform:scale(1.36)}
         }
-        @keyframes openingBrandPulse{
-            0%,24%{opacity:0;transform:scale(.3)}
-            48%{opacity:.34;transform:scale(1)}
-            100%{opacity:0;transform:scale(1.9)}
+        @keyframes openingBrandDrift{
+            0%,56%{transform:translateY(0)}
+            100%{transform:translateY(-1.6vh)}
+        }
+        @keyframes openingAuraPulse{
+            0%,16%{opacity:0;transform:scale(.24)}
+            34%{opacity:.86;transform:scale(1)}
+            64%{opacity:.22;transform:scale(1.42)}
+            100%{opacity:0;transform:scale(2.7)}
+        }
+        @keyframes openingTunnelSpin{
+            0%,26%{opacity:0;transform:scale(.72) rotate(-28deg)}
+            44%{opacity:.52;transform:scale(1) rotate(-4deg)}
+            72%{opacity:.34;transform:scale(1.48) rotate(16deg)}
+            100%{opacity:0;transform:scale(3.9) rotate(34deg)}
+        }
+        @keyframes openingOrbitTrace{
+            0%{opacity:0;transform:scale(.48) rotate(-22deg);stroke-dashoffset:110}
+            12%{opacity:.92}
+            34%{opacity:1;transform:scale(1) rotate(0deg);stroke-dashoffset:18}
+            58%{opacity:.32;stroke-dashoffset:-28}
+            100%{opacity:0;transform:scale(2.6) rotate(16deg);stroke-dashoffset:-92}
+        }
+        @keyframes openingLogoCarrier{
+            0%,14%{opacity:0;transform:scale(.76) rotate(-7deg)}
+            24%,60%{opacity:1;transform:scale(1) rotate(0deg)}
+            78%{opacity:.94}
+            100%{opacity:0;transform:scale(6.4) rotate(4deg)}
+        }
+        @keyframes openingLogoTrace{
+            0%{opacity:0;stroke-dashoffset:1}
+            12%{opacity:.92}
+            34%{opacity:1;stroke-dashoffset:0}
+            58%{opacity:.28}
+            100%{opacity:0;stroke-dashoffset:0}
+        }
+        @keyframes openingLogoFill{
+            0%,18%{opacity:0}
+            28%,62%{opacity:1}
+            78%{opacity:.94}
+            100%{opacity:0}
         }
         @keyframes openingVideoReveal{
-            0%,52%{opacity:0;transform:scale(1.08)}
-            74%{opacity:.72}
-            100%{opacity:1;transform:scale(1)}
+            0%,56%{opacity:0;transform:scale(1.16);filter:saturate(.96) contrast(1.04) blur(18px)}
+            72%{opacity:.72;filter:saturate(1) contrast(1.06) blur(10px)}
+            100%{opacity:1;transform:scale(1);filter:saturate(1.04) contrast(1.08) blur(0)}
         }
         @keyframes openingMaskFade{
-            0%,52%{opacity:1}
-            100%{opacity:.08}
+            0%,56%{opacity:1}
+            76%{opacity:.68}
+            100%{opacity:.03}
         }
         @keyframes openingDockReveal{
-            0%,72%{opacity:0;transform:translateX(-50%) translateY(10px)}
+            0%,78%{opacity:0;transform:translateX(-50%) translateY(10px)}
             100%{opacity:1;transform:translateX(-50%) translateY(0)}
         }
         @keyframes openingHintFloat{
             0%,100%{transform:translateY(0)}
             50%{transform:translateY(4px)}
+        }
+        @media (prefers-reduced-motion: reduce){
+            .opening-stage::before,.opening-video-wrap,.opening-video-mask,.opening-brand,.opening-brand::before,.opening-brand::after,.opening-brand-streak ellipse,.opening-brand-logo,.opening-brand-trace-path,.opening-brand-solid-path,.opening-dock{
+                animation:none !important
+            }
+            .opening-video-wrap{opacity:1;transform:none;filter:none}
+            .opening-video-mask{opacity:.08}
+            .opening-brand{display:none}
+            .opening-dock{opacity:1;transform:translateX(-50%)}
         }
         .hero-stage{min-height:100svh;display:flex;align-items:center;justify-content:center;overflow:hidden;background:#000}
         .hero-video-wrap,.hero-video-wrap video{position:absolute;inset:0}
@@ -410,7 +480,11 @@
     <header class="site-header" id="siteHeader">
         <div class="header-shell">
             <a class="brand-lockup" href="#home" id="brandLockup" aria-label="郭钧贤 home">
-                <span class="brand-mark" aria-hidden="true"><span class="brand-core"></span></span>
+                <span class="brand-mark" aria-hidden="true">
+                    <svg class="brand-mark-svg" viewBox="0 0 32 32" role="presentation" focusable="false">
+                        <path class="brand-mark-path" d="m26.166 4.454.106.105.003-.003c2.04 2.048 1.455 6.163-1.503 10.828l5.818 5.82-.25.487a17.3 17.3 0 0 1-3.905 5.04 17 17 0 0 1-7.414 3.864l-.1.024-.143.034-.103.023h-.001l-.226.05-.188.037-.141.027c-.15.03-.307.058-.46.084l-.128.019-.097.012q-.207.028-.412.052a15.49 15.49 0 0 1-12.605-4.361l-.096-.093c-2.044-2.048-1.465-6.166 1.497-10.834L0 9.849l.25-.487a17.1 17.1 0 0 1 3.908-5.036A17.2 17.2 0 0 1 9.774.992c.48-.173.982-.324 1.475-.452A15 15 0 0 1 12.48.265c.14-.028.298-.057.451-.083a15.45 15.45 0 0 1 13.235 4.272m-1.967.25h-.006l.006.003c-1.977-.612-5.114.377-8.43 2.562 2.523-.703 4.963-.339 6.54 1.239 1.494 1.497 1.903 3.769 1.337 6.156q-.04.191-.1.387c2.707-4.095 3.573-7.926 1.859-9.637a1 1 0 0 0-.09-.087l-.013-.012-.019-.017-.057-.044q-.037-.03-.077-.058l-.042-.03a3 3 0 0 0-.908-.462m-1.357 9.205c-.349 2.082-1.5 4.186-3.245 5.929-1.74 1.744-3.848 2.896-5.933 3.248-1.951.33-3.634-.1-4.737-1.2-1.1-1.101-1.53-2.778-1.2-4.739.349-2.08 1.497-4.185 3.234-5.926 0 0 .003 0 .01-.01l.006-.01C12.72 9.469 14.82 8.32 16.9 7.972c1.951-.33 3.63.098 4.737 1.2 1.1 1.1 1.53 2.78 1.2 4.738zm-17.68-8.46a15.6 15.6 0 0 0-3.307 4.118l-.01.003 5.048 5.036q.617-.869 1.32-1.718.246-.294.506-.598l.066-.075.24-.268c.007-.006.014-.019.014-.019l.044-.05.023-.027.035-.038.09-.1q.094-.108.195-.213c0-.007.01-.017.01-.017l.108-.118.077-.08q.005-.008.006-.006.009-.008.007-.01l.014-.018.014-.017a.2.2 0 0 0 .033-.032l.019-.02c.041-.041.09-.089.134-.137q.035-.043.08-.086l.041-.042c.007-.01.026-.029.026-.029l.077-.076.15-.148.05-.053.056-.059a33 33 0 0 1 3.457-3.017l.16-.117h.001v-.001l.002-.001.16-.118q.268-.201.54-.393.29-.198.58-.39c2.622-1.748 5.19-2.797 7.286-3.005a13.95 13.95 0 0 0-9.35-1.84c-.14.022-.274.045-.418.074-.091.016-.17.032-.25.048l-.048.01a16 16 0 0 0-2.165.607 15.6 15.6 0 0 0-5.12 3.04m.278 20.408q.42.32.957.486H6.39c1.99.608 5.115-.384 8.419-2.563-2.52.7-4.955.336-6.532-1.242-1.487-1.49-1.896-3.769-1.333-6.156q.042-.191.099-.387c-2.706 4.096-3.57 7.926-1.858 9.638q.058.057.124.115.062.056.131.109m23.292-4.37v.002a15.7 15.7 0 0 1-3.305 4.115 15.7 15.7 0 0 1-6.972 3.576l-.032.008-.086.02a3 3 0 0 1-.295.064q-.097.021-.198.037a8 8 0 0 1-.42.07l-.117.02-.133.017q-.16.022-.328.04a13.97 13.97 0 0 1-8.767-1.913c2.018-.199 4.475-1.184 6.995-2.813l.144-.094.144-.095.196-.132h.001v-.001l.379-.257q.275-.192.54-.393.166-.119.326-.237a34 34 0 0 0 3.458-3.018q.039-.04.073-.078l.03-.034q.08-.075.15-.147l.076-.076s.02-.02.023-.03q.015-.013.029-.028l.012-.013.087-.086.067-.07q.034-.032.067-.068l.018-.02a.2.2 0 0 1 .033-.031l.015-.018.014-.017s.01-.01.016-.013l.027-.029.027-.029.026-.025q-.042.044-.08.092l.062-.065.001-.002q.065-.07.129-.134s0-.01.01-.01q.088-.094.171-.19l.113-.126a.1.1 0 0 0 .035-.039l.064-.077.016-.019q.117-.125.229-.253l.078-.09q.188-.219.374-.441l.15-.179.047-.058q.09-.113.178-.22.075-.09.147-.184.045-.06.093-.117c.29-.374.569-.742.838-1.12zm0 0q0-.005.006-.008v.016l-.007-.006h.003z"></path>
+                    </svg>
+                </span>
                 <span>郭钧贤</span>
             </a>
             <nav class="header-nav" aria-label="Primary">
@@ -540,7 +614,13 @@
             <button class="opening-skip" type="button" id="openingSkip" data-i18n="openingSkip">Skip Intro</button>
             <div class="opening-center">
                 <div class="opening-brand">
-                    <span class="brand-mark opening-brand-mark" aria-hidden="true"><span class="brand-core"></span></span>
+                    <svg class="opening-brand-streak" viewBox="0 0 160 160" aria-hidden="true" focusable="false">
+                        <ellipse cx="80" cy="80" rx="34" ry="18" transform="rotate(-34 80 80)"></ellipse>
+                    </svg>
+                    <svg class="opening-brand-logo" viewBox="0 0 32 32" aria-hidden="true" focusable="false">
+                        <path class="opening-brand-trace-path" pathLength="1" d="m26.166 4.454.106.105.003-.003c2.04 2.048 1.455 6.163-1.503 10.828l5.818 5.82-.25.487a17.3 17.3 0 0 1-3.905 5.04 17 17 0 0 1-7.414 3.864l-.1.024-.143.034-.103.023h-.001l-.226.05-.188.037-.141.027c-.15.03-.307.058-.46.084l-.128.019-.097.012q-.207.028-.412.052a15.49 15.49 0 0 1-12.605-4.361l-.096-.093c-2.044-2.048-1.465-6.166 1.497-10.834L0 9.849l.25-.487a17.1 17.1 0 0 1 3.908-5.036A17.2 17.2 0 0 1 9.774.992c.48-.173.982-.324 1.475-.452A15 15 0 0 1 12.48.265c.14-.028.298-.057.451-.083a15.45 15.45 0 0 1 13.235 4.272m-1.967.25h-.006l.006.003c-1.977-.612-5.114.377-8.43 2.562 2.523-.703 4.963-.339 6.54 1.239 1.494 1.497 1.903 3.769 1.337 6.156q-.04.191-.1.387c2.707-4.095 3.573-7.926 1.859-9.637a1 1 0 0 0-.09-.087l-.013-.012-.019-.017-.057-.044q-.037-.03-.077-.058l-.042-.03a3 3 0 0 0-.908-.462m-1.357 9.205c-.349 2.082-1.5 4.186-3.245 5.929-1.74 1.744-3.848 2.896-5.933 3.248-1.951.33-3.634-.1-4.737-1.2-1.1-1.101-1.53-2.778-1.2-4.739.349-2.08 1.497-4.185 3.234-5.926 0 0 .003 0 .01-.01l.006-.01C12.72 9.469 14.82 8.32 16.9 7.972c1.951-.33 3.63.098 4.737 1.2 1.1 1.1 1.53 2.78 1.2 4.738zm-17.68-8.46a15.6 15.6 0 0 0-3.307 4.118l-.01.003 5.048 5.036q.617-.869 1.32-1.718.246-.294.506-.598l.066-.075.24-.268c.007-.006.014-.019.014-.019l.044-.05.023-.027.035-.038.09-.1q.094-.108.195-.213c0-.007.01-.017.01-.017l.108-.118.077-.08q.005-.008.006-.006.009-.008.007-.01l.014-.018.014-.017a.2.2 0 0 0 .033-.032l.019-.02c.041-.041.09-.089.134-.137q.035-.043.08-.086l.041-.042c.007-.01.026-.029.026-.029l.077-.076.15-.148.05-.053.056-.059a33 33 0 0 1 3.457-3.017l.16-.117h.001v-.001l.002-.001.16-.118q.268-.201.54-.393.29-.198.58-.39c2.622-1.748 5.19-2.797 7.286-3.005a13.95 13.95 0 0 0-9.35-1.84c-.14.022-.274.045-.418.074-.091.016-.17.032-.25.048l-.048.01a16 16 0 0 0-2.165.607 15.6 15.6 0 0 0-5.12 3.04m.278 20.408q.42.32.957.486H6.39c1.99.608 5.115-.384 8.419-2.563-2.52.7-4.955.336-6.532-1.242-1.487-1.49-1.896-3.769-1.333-6.156q.042-.191.099-.387c-2.706 4.096-3.57 7.926-1.858 9.638q.058.057.124.115.062.056.131.109m23.292-4.37v.002a15.7 15.7 0 0 1-3.305 4.115 15.7 15.7 0 0 1-6.972 3.576l-.032.008-.086.02a3 3 0 0 1-.295.064q-.097.021-.198.037a8 8 0 0 1-.42.07l-.117.02-.133.017q-.16.022-.328.04a13.97 13.97 0 0 1-8.767-1.913c2.018-.199 4.475-1.184 6.995-2.813l.144-.094.144-.095.196-.132h.001v-.001l.379-.257q.275-.192.54-.393.166-.119.326-.237a34 34 0 0 0 3.458-3.018q.039-.04.073-.078l.03-.034q.08-.075.15-.147l.076-.076s.02-.02.023-.03q.015-.013.029-.028l.012-.013.087-.086.067-.07q.034-.032.067-.068l.018-.02a.2.2 0 0 1 .033-.031l.015-.018.014-.017s.01-.01.016-.013l.027-.029.027-.029.026-.025q-.042.044-.08.092l.062-.065.001-.002q.065-.07.129-.134s0-.01.01-.01q.088-.094.171-.19l.113-.126a.1.1 0 0 0 .035-.039l.064-.077.016-.019q.117-.125.229-.253l.078-.09q.188-.219.374-.441l.15-.179.047-.058q.09-.113.178-.22.075-.09.147-.184.045-.06.093-.117c.29-.374.569-.742.838-1.12zm0 0q0-.005.006-.008v.016l-.007-.006h.003z"></path>
+                        <path class="opening-brand-solid-path" d="m26.166 4.454.106.105.003-.003c2.04 2.048 1.455 6.163-1.503 10.828l5.818 5.82-.25.487a17.3 17.3 0 0 1-3.905 5.04 17 17 0 0 1-7.414 3.864l-.1.024-.143.034-.103.023h-.001l-.226.05-.188.037-.141.027c-.15.03-.307.058-.46.084l-.128.019-.097.012q-.207.028-.412.052a15.49 15.49 0 0 1-12.605-4.361l-.096-.093c-2.044-2.048-1.465-6.166 1.497-10.834L0 9.849l.25-.487a17.1 17.1 0 0 1 3.908-5.036A17.2 17.2 0 0 1 9.774.992c.48-.173.982-.324 1.475-.452A15 15 0 0 1 12.48.265c.14-.028.298-.057.451-.083a15.45 15.45 0 0 1 13.235 4.272m-1.967.25h-.006l.006.003c-1.977-.612-5.114.377-8.43 2.562 2.523-.703 4.963-.339 6.54 1.239 1.494 1.497 1.903 3.769 1.337 6.156q-.04.191-.1.387c2.707-4.095 3.573-7.926 1.859-9.637a1 1 0 0 0-.09-.087l-.013-.012-.019-.017-.057-.044q-.037-.03-.077-.058l-.042-.03a3 3 0 0 0-.908-.462m-1.357 9.205c-.349 2.082-1.5 4.186-3.245 5.929-1.74 1.744-3.848 2.896-5.933 3.248-1.951.33-3.634-.1-4.737-1.2-1.1-1.101-1.53-2.778-1.2-4.739.349-2.08 1.497-4.185 3.234-5.926 0 0 .003 0 .01-.01l.006-.01C12.72 9.469 14.82 8.32 16.9 7.972c1.951-.33 3.63.098 4.737 1.2 1.1 1.1 1.53 2.78 1.2 4.738zm-17.68-8.46a15.6 15.6 0 0 0-3.307 4.118l-.01.003 5.048 5.036q.617-.869 1.32-1.718.246-.294.506-.598l.066-.075.24-.268c.007-.006.014-.019.014-.019l.044-.05.023-.027.035-.038.09-.1q.094-.108.195-.213c0-.007.01-.017.01-.017l.108-.118.077-.08q.005-.008.006-.006.009-.008.007-.01l.014-.018.014-.017a.2.2 0 0 0 .033-.032l.019-.02c.041-.041.09-.089.134-.137q.035-.043.08-.086l.041-.042c.007-.01.026-.029.026-.029l.077-.076.15-.148.05-.053.056-.059a33 33 0 0 1 3.457-3.017l.16-.117h.001v-.001l.002-.001.16-.118q.268-.201.54-.393.29-.198.58-.39c2.622-1.748 5.19-2.797 7.286-3.005a13.95 13.95 0 0 0-9.35-1.84c-.14.022-.274.045-.418.074-.091.016-.17.032-.25.048l-.048.01a16 16 0 0 0-2.165.607 15.6 15.6 0 0 0-5.12 3.04m.278 20.408q.42.32.957.486H6.39c1.99.608 5.115-.384 8.419-2.563-2.52.7-4.955.336-6.532-1.242-1.487-1.49-1.896-3.769-1.333-6.156q.042-.191.099-.387c-2.706 4.096-3.57 7.926-1.858 9.638q.058.057.124.115.062.056.131.109m23.292-4.37v.002a15.7 15.7 0 0 1-3.305 4.115 15.7 15.7 0 0 1-6.972 3.576l-.032.008-.086.02a3 3 0 0 1-.295.064q-.097.021-.198.037a8 8 0 0 1-.42.07l-.117.02-.133.017q-.16.022-.328.04a13.97 13.97 0 0 1-8.767-1.913c2.018-.199 4.475-1.184 6.995-2.813l.144-.094.144-.095.196-.132h.001v-.001l.379-.257q.275-.192.54-.393.166-.119.326-.237a34 34 0 0 0 3.458-3.018q.039-.04.073-.078l.03-.034q.08-.075.15-.147l.076-.076s.02-.02.023-.03q.015-.013.029-.028l.012-.013.087-.086.067-.07q.034-.032.067-.068l.018-.02a.2.2 0 0 1 .033-.031l.015-.018.014-.017s.01-.01.016-.013l.027-.029.027-.029.026-.025q-.042.044-.08.092l.062-.065.001-.002q.065-.07.129-.134s0-.01.01-.01q.088-.094.171-.19l.113-.126a.1.1 0 0 0 .035-.039l.064-.077.016-.019q.117-.125.229-.253l.078-.09q.188-.219.374-.441l.15-.179.047-.058q.09-.113.178-.22.075-.09.147-.184.045-.06.093-.117c.29-.374.569-.742.838-1.12zm0 0q0-.005.006-.008v.016l-.007-.006h.003z"></path>
+                    </svg>
                 </div>
             </div>
             <div class="opening-dock">
