@@ -640,7 +640,7 @@
     <main>
         <section class="opening-stage" id="openingStage" aria-label="Opening intro">
             <div class="opening-video-wrap" aria-hidden="true">
-                <video class="media-video" data-start="0" autoplay muted loop playsinline preload="auto" src="hero-cover.mp4?v=20260420-requested-video"></video>
+                <video class="media-video" id="openingIntroVideo" data-video-role="opening" data-start="0" autoplay muted loop playsinline preload="auto" src="opening-cover.mp4?v=20260420-opening-video-1"></video>
                 <div class="opening-video-mask"></div>
             </div>
             <button class="opening-skip" type="button" id="openingSkip" data-i18n="openingSkip">Skip Intro</button>
@@ -662,7 +662,7 @@
         </section>
         <section class="hero-stage" id="home">
             <div class="hero-video-wrap" aria-hidden="true">
-                <video class="media-video" data-start="0.8" autoplay muted loop playsinline preload="metadata" src="hero-cover.mp4?v=20260420-requested-video"></video>
+                <video class="media-video" id="heroCoverVideo" data-video-role="hero" data-start="0.8" autoplay muted loop playsinline preload="auto" src="hero-cover.mp4?v=20260420-requested-video"></video>
             </div>
             <div class="hero-content fade-up">
                 <div class="eyebrow" data-i18n="heroEyebrow">AI Product Operations</div>
@@ -1130,6 +1130,8 @@
         const openingStage = document.getElementById('openingStage');
         const openingSkip = document.getElementById('openingSkip');
         const openingEnter = document.getElementById('openingEnter');
+        const openingIntroVideo = document.getElementById('openingIntroVideo');
+        const heroCoverVideo = document.getElementById('heroCoverVideo');
         const i18nNodes = Array.from(document.querySelectorAll('[data-i18n]'));
         const languageToggles = Array.from(document.querySelectorAll('[data-lang-toggle]'));
         const brandLockup = document.getElementById('brandLockup');
@@ -1137,6 +1139,8 @@
         const sceneCardImage = document.getElementById('sceneCardImage');
         const LANGUAGE_STORAGE_KEY = 'resume-language';
         let headerHoverTimer = null;
+        let heroTransitionWarmTimer = null;
+        let heroPrimePromise = null;
 
         const defaultCopy = Object.fromEntries(
             i18nNodes.map((node) => [node.dataset.i18n, node.innerHTML])
@@ -1263,13 +1267,55 @@
                 }
             };
 
-            if (video.readyState >= 1) {
+            if (video.readyState >= 2) {
                 tryPlay();
                 return;
             }
 
-            video.addEventListener('loadedmetadata', tryPlay, { once: true });
+            video.addEventListener('loadeddata', tryPlay, { once: true });
             video.load();
+        }
+
+        function keepHeroWarm() {
+            if (!heroCoverVideo) {
+                return;
+            }
+
+            heroCoverVideo.dataset.transitionWarm = 'true';
+            if (heroTransitionWarmTimer) {
+                window.clearTimeout(heroTransitionWarmTimer);
+            }
+            heroTransitionWarmTimer = window.setTimeout(() => {
+                heroCoverVideo.dataset.transitionWarm = 'false';
+            }, 1400);
+        }
+
+        function primeHeroVideo() {
+            if (!heroCoverVideo) {
+                return Promise.resolve();
+            }
+
+            if (heroPrimePromise) {
+                return heroPrimePromise;
+            }
+
+            heroPrimePromise = new Promise((resolve) => {
+                const markReady = () => {
+                    applyVideoStartTime(heroCoverVideo);
+                    keepHeroWarm();
+                    resolve();
+                };
+
+                if (heroCoverVideo.readyState >= 2) {
+                    markReady();
+                    return;
+                }
+
+                heroCoverVideo.addEventListener('loadeddata', markReady, { once: true });
+                heroCoverVideo.load();
+            });
+
+            return heroPrimePromise;
         }
 
         const videoObserver = new IntersectionObserver((entries) => {
@@ -1277,6 +1323,10 @@
                 const video = entry.target;
                 if (entry.isIntersecting) {
                     playVisibleVideo(video);
+                    return;
+                }
+
+                if (video.dataset.transitionWarm === 'true') {
                     return;
                 }
 
@@ -1291,6 +1341,8 @@
         mediaVideos.forEach((video) => {
             videoObserver.observe(video);
         });
+
+        primeHeroVideo();
 
         function setActiveShowcase(panelName) {
             showcaseTabs.forEach((tab) => {
@@ -1316,7 +1368,22 @@
                 return;
             }
 
-            homeSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            let didScroll = false;
+            const startScroll = () => {
+                if (didScroll) {
+                    return;
+                }
+
+                didScroll = true;
+                keepHeroWarm();
+                playVisibleVideo(heroCoverVideo);
+                window.requestAnimationFrame(() => {
+                    homeSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                });
+            };
+
+            primeHeroVideo().then(startScroll);
+            window.setTimeout(startScroll, 180);
         }
 
         function getStoredLanguage() {
