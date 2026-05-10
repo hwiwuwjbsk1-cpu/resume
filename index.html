@@ -544,15 +544,15 @@
                 <div class="hover-panel-column">
                     <div class="hover-panel-label" data-i18n="workflowPanelLabel">Workflows &amp; Agents</div>
                     <div class="hover-panel-grid">
-                        <a class="hover-panel-link" href="#series">
+                        <a class="hover-panel-link" href="#projects" data-showcase-target="analysis-agent" data-showcase-hash="finance-agent">
                             <strong data-i18n="workflowLink1Title">Finance Agent Workflows</strong>
                             <p data-i18n="workflowLink1Copy">See how I build Dify and Alibaba Bailian agents for market tracking, stock diagnosis, sector diagnosis, and smart replies.</p>
                         </a>
-                        <a class="hover-panel-link" href="#projects">
+                        <a class="hover-panel-link" href="#projects" data-showcase-target="content-workflow" data-showcase-hash="ai-radio">
                             <strong data-i18n="workflowLink2Title">AI Radio Project</strong>
                             <p data-i18n="workflowLink2Copy">Review the Node.js AI radio chain covering taste parsing, DJ planning, music source access, TTS, and PWA playback.</p>
                         </a>
-                        <a class="hover-panel-link" href="#scenes">
+                        <a class="hover-panel-link" href="#projects" data-showcase-target="launch-prototype" data-showcase-hash="service-multi-agent">
                             <strong data-i18n="workflowLink3Title">Multi-Agent Service</strong>
                             <p data-i18n="workflowLink3Copy">See the LangGraph + FastAPI customer-service system with routing, RAG, order lookup, compliance review, and handoff.</p>
                         </a>
@@ -577,15 +577,15 @@
                 <div class="hover-panel-column">
                     <div class="hover-panel-label" data-i18n="systemsPanelLabel">Core Systems</div>
                     <div class="hover-panel-grid">
-                        <a class="hover-panel-link" href="#projects">
+                        <a class="hover-panel-link" href="#projects" data-showcase-target="analysis-agent" data-showcase-hash="finance-agent">
                             <strong data-i18n="systemsLink1Title">Finance Agents</strong>
                             <p data-i18n="systemsLink1Copy">Agent capabilities built for market tracking, message decoding, stock research, fund selection, and investment diagnosis.</p>
                         </a>
-                        <a class="hover-panel-link" href="#projects">
+                        <a class="hover-panel-link" href="#projects" data-showcase-target="content-workflow" data-showcase-hash="ai-radio">
                             <strong data-i18n="systemsLink2Title">AI Radio</strong>
                             <p data-i18n="systemsLink2Copy">A personal radio application with playlist planning, memory, music source integration, TTS linking, and real-time playback state.</p>
                         </a>
-                        <a class="hover-panel-link" href="#projects">
+                        <a class="hover-panel-link" href="#projects" data-showcase-target="launch-prototype" data-showcase-hash="service-multi-agent">
                             <strong data-i18n="systemsLink3Title">Smart Customer Service</strong>
                             <p data-i18n="systemsLink3Copy">A cross-border ecommerce multi-agent service system with intent routing, RAG, order tools, risk review, and human handoff.</p>
                         </a>
@@ -1133,6 +1133,7 @@
         const showcaseTabs = Array.from(document.querySelectorAll('[data-showcase-tab]'));
         const showcasePanels = Array.from(document.querySelectorAll('[data-showcase-panel]'));
         const showcaseRailItems = Array.from(document.querySelectorAll('[data-showcase-rail]'));
+        const showcaseTargetLinks = Array.from(document.querySelectorAll('[data-showcase-target]'));
         const openingStage = document.getElementById('openingStage');
         const openingSkip = document.getElementById('openingSkip');
         const openingEnter = document.getElementById('openingEnter');
@@ -1144,6 +1145,18 @@
         const languageSwitch = document.getElementById('languageSwitch');
         const sceneCardImage = document.getElementById('sceneCardImage');
         const LANGUAGE_STORAGE_KEY = 'resume-language';
+        const SHOWCASE_HASH_MAP = {
+            '#finance-agent': 'analysis-agent',
+            '#ai-radio': 'content-workflow',
+            '#music-project': 'content-workflow',
+            '#service-multi-agent': 'launch-prototype',
+            '#customer-service': 'launch-prototype'
+        };
+        const SHOWCASE_PANEL_HASH_MAP = {
+            'analysis-agent': 'finance-agent',
+            'content-workflow': 'ai-radio',
+            'launch-prototype': 'service-multi-agent'
+        };
         let headerHoverTimer = null;
         let heroTransitionWarmTimer = null;
         let heroPrimePromise = null;
@@ -1368,6 +1381,27 @@
             });
         }
 
+        function scrollToProjects() {
+            const projectsSection = document.getElementById('projects');
+            if (projectsSection) {
+                projectsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+
+        function openShowcaseTarget(panelName, hashName = '') {
+            if (!panelName) {
+                return;
+            }
+
+            setActiveShowcase(panelName);
+            closeHeaderHover(true);
+            scrollToProjects();
+
+            if (hashName && window.history && typeof window.history.pushState === 'function') {
+                window.history.pushState(null, '', `#${hashName}`);
+            }
+        }
+
         function enterSite() {
             const homeSection = document.getElementById('home');
             if (!homeSection) {
@@ -1443,13 +1477,28 @@
 
         showcaseTabs.forEach((tab) => {
             tab.addEventListener('click', () => {
-                setActiveShowcase(tab.dataset.showcaseTab);
+                const panelName = tab.dataset.showcaseTab;
+                setActiveShowcase(panelName);
+                if (window.history && typeof window.history.replaceState === 'function') {
+                    window.history.replaceState(null, '', `#${SHOWCASE_PANEL_HASH_MAP[panelName] || 'projects'}`);
+                }
             });
         });
 
         showcaseRailItems.forEach((item) => {
             item.addEventListener('click', () => {
-                setActiveShowcase(item.dataset.showcaseRail);
+                const panelName = item.dataset.showcaseRail;
+                setActiveShowcase(panelName);
+                if (window.history && typeof window.history.replaceState === 'function') {
+                    window.history.replaceState(null, '', `#${SHOWCASE_PANEL_HASH_MAP[panelName] || 'projects'}`);
+                }
+            });
+        });
+
+        showcaseTargetLinks.forEach((link) => {
+            link.addEventListener('click', (event) => {
+                event.preventDefault();
+                openShowcaseTarget(link.dataset.showcaseTarget, link.dataset.showcaseHash);
             });
         });
 
@@ -1511,14 +1560,25 @@
 
         syncHeader();
         syncIntroGate();
-        if (showcaseTabs.length > 0) {
-            setActiveShowcase(showcaseTabs[0].dataset.showcaseTab);
+        const initialShowcasePanel = SHOWCASE_HASH_MAP[window.location.hash] || (showcaseTabs[0] ? showcaseTabs[0].dataset.showcaseTab : '');
+        if (initialShowcasePanel) {
+            setActiveShowcase(initialShowcasePanel);
         }
         setLanguage(getStoredLanguage());
+        if (SHOWCASE_HASH_MAP[window.location.hash]) {
+            window.setTimeout(scrollToProjects, 0);
+        }
         window.addEventListener('scroll', () => {
             syncHeader();
             syncIntroGate();
         }, { passive: true });
+        window.addEventListener('hashchange', () => {
+            const panelName = SHOWCASE_HASH_MAP[window.location.hash];
+            if (panelName) {
+                setActiveShowcase(panelName);
+                scrollToProjects();
+            }
+        });
     </script>
 </body>
 </html>
